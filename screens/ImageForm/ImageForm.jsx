@@ -14,7 +14,7 @@ export default function ImageForm() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [3, 3],
       quality: 1,
     });
 
@@ -27,11 +27,11 @@ export default function ImageForm() {
       {image && (
         <Image
           source={{ uri: image }}
-          style={{ width: 120, height: 120, borderRadius: 16 }}
+          style={{ width: "100%", height: "100%", borderRadius: 16 }}
         />
       )}
       <View style={styles.uploadBtnContainer}>
-        <TouchableOpacity onPress={addImage}>
+        <TouchableOpacity onPress={addImage} activeOpacity={0.8}>
           <AddIcon />
         </TouchableOpacity>
       </View>
