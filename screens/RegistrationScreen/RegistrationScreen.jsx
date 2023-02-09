@@ -13,6 +13,7 @@ import {
 // Components
 import BGScreen from "../BGScreen/BGScreen";
 import AddIcon from "../../assets/images/AddIcon";
+import ImageForm from "../ImageForm/ImageForm";
 
 // Styles
 import styles from "./RegistrationScreen.Styled";
@@ -53,14 +54,11 @@ export default function RegistrationScreen() {
       }}
     >
       <View style={styles.container}>
-        <View
-          style={{
-            ...styles.wrapper,
-          }}
-        >
-          <View style={styles.user_imageWrapper}>
-            <AddIcon style={styles.user_addIcon} />
-          </View>
+        <View style={styles.wrapper}>
+          {/* <View style={styles.user_imageWrapper}> */}
+          <ImageForm />
+          {/* <AddIcon style={styles.user_addIcon} /> */}
+          {/* </View> */}
           <Text style={styles.title}>Реєстрація</Text>
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
