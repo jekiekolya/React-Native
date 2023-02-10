@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Text,
   TextInput,
@@ -9,6 +9,7 @@ import {
   Linking,
   TouchableOpacity,
 } from "react-native";
+import { useKeyboard } from "../../helpers/useKeyboard";
 
 // Components
 import BGScreen from "../BGScreen/BGScreen";
@@ -16,9 +17,13 @@ import BGScreen from "../BGScreen/BGScreen";
 // Styles
 import styles from "./LoginScreen.Styled";
 
+const initialState = {
+  email: "",
+  password: "",
+};
+
 export default function LoginScreen() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState(initialState);
 
   const [showPassword, setShowPassword] = useState(true);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -28,29 +33,38 @@ export default function LoginScreen() {
   const [borderInputColorPassword, setBorderInputColorPassword] =
     useState("#E8E8E8");
 
+  // Height keyboard
+  const heightKeyboard = useKeyboard();
+  useEffect(() => {
+    if (heightKeyboard === 0) {
+      setIsShowKeyboard(false);
+    }
+  }, [heightKeyboard, setIsShowKeyboard]);
+
   // Event handlers
-  const emailHandler = (text) => setEmail(text);
-  const passwordHandler = (text) => setPassword(text);
+  const emailHandler = (text) => setFormData((p) => ({ ...p, email: text }));
+  const passwordHandler = (text) =>
+    setFormData((p) => ({ ...p, password: text }));
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const onRegister = () => {
-    Alert.alert("Credentials", `${email} + ${password}`);
-    console.log("Credentials:", `${email} + ${password}`);
-    setEmail("");
-    setPassword("");
+    Alert.alert("Credentials", `${formData.email} + ${formData.password}`);
+    console.log("Credentials:", `${formData.email} + ${formData.password}`);
+    setFormData(initialState);
   };
 
   return (
     <BGScreen
       style={{
-        marginBottom: isShowKeyboard ? -241 : 0,
+        marginBottom: isShowKeyboard ? -heightKeyboard : 0,
       }}
     >
       <View style={styles.container}>
         <View
           style={{
             ...styles.wrapper,
+            marginBottom: isShowKeyboard ? heightKeyboard - 241 : 0,
           }}
         >
           <Text style={styles.title}>Увійти</Text>
@@ -59,7 +73,7 @@ export default function LoginScreen() {
           >
             <View style={styles.inputWrapper}>
               <TextInput
-                value={email}
+                value={formData.email}
                 onChangeText={emailHandler}
                 placeholder="Адреса електронної пошти"
                 placeholderTextColor={"#BDBDBD"}
@@ -73,12 +87,11 @@ export default function LoginScreen() {
                 }}
                 onBlur={() => {
                   setBorderInputColorEmail("#E8E8E8");
-                  setIsShowKeyboard(false);
                 }}
               />
               <View style={[styles.inputLayout, styles.inputGap]}>
                 <TextInput
-                  value={password}
+                  value={formData.password}
                   onChangeText={passwordHandler}
                   placeholder="Пароль"
                   secureTextEntry={showPassword}
@@ -93,7 +106,6 @@ export default function LoginScreen() {
                   }}
                   onBlur={() => {
                     setBorderInputColorPassword("#E8E8E8");
-                    setIsShowKeyboard(false);
                   }}
                 />
                 {showPassword ? (

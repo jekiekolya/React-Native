@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Text,
   TextInput,
@@ -9,19 +9,23 @@ import {
   Linking,
   TouchableOpacity,
 } from "react-native";
+import { useKeyboard } from "../../helpers/useKeyboard";
 
 // Components
 import BGScreen from "../BGScreen/BGScreen";
-import AddIcon from "../../assets/images/AddIcon";
 import ImageForm from "../ImageForm/ImageForm";
 
 // Styles
 import styles from "./RegistrationScreen.Styled";
 
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+};
+
 export default function RegistrationScreen() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState(initialState);
 
   const [showPassword, setShowPassword] = useState(true);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -32,40 +36,55 @@ export default function RegistrationScreen() {
   const [borderInputColorPassword, setBorderInputColorPassword] =
     useState("#E8E8E8");
 
+  // Height keyboard
+  const heightKeyboard = useKeyboard();
+  useEffect(() => {
+    if (heightKeyboard === 0) {
+      setIsShowKeyboard(false);
+    }
+  }, [heightKeyboard, setIsShowKeyboard]);
+
   // Event handlers
-  const nameHandler = (text) => setName(text);
-  const emailHandler = (text) => setEmail(text);
-  const passwordHandler = (text) => setPassword(text);
+  const nameHandler = (text) => setFormData((p) => ({ ...p, name: text }));
+  const emailHandler = (text) => setFormData((p) => ({ ...p, email: text }));
+  const passwordHandler = (text) =>
+    setFormData((p) => ({ ...p, password: text }));
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const onRegister = () => {
-    Alert.alert("Credentials", `${name} + ${email} + ${password}`);
-    console.log("Credentials:", `${name} + ${email} + ${password}`);
-    setName("");
-    setEmail("");
-    setPassword("");
+    Alert.alert(
+      "Credentials",
+      `${formData.name} + ${formData.email} + ${formData.password}`
+    );
+    console.log(
+      "Credentials:",
+      `${formData.name} + ${formData.email} + ${formData.password}`
+    );
+    setFormData(initialState);
   };
 
   return (
     <BGScreen
       style={{
-        marginBottom: isShowKeyboard ? -167 : 0,
+        marginBottom: isShowKeyboard ? -heightKeyboard : 0,
       }}
     >
       <View style={styles.container}>
-        <View style={styles.wrapper}>
-          {/* <View style={styles.user_imageWrapper}> */}
+        <View
+          style={{
+            ...styles.wrapper,
+            marginBottom: isShowKeyboard ? heightKeyboard - 175 : 0,
+          }}
+        >
           <ImageForm />
-          {/* <AddIcon style={styles.user_addIcon} /> */}
-          {/* </View> */}
           <Text style={styles.title}>Реєстрація</Text>
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
             <View style={styles.inputWrapper}>
               <TextInput
-                value={name}
+                value={formData.name}
                 onChangeText={nameHandler}
                 placeholder="Логін"
                 placeholderTextColor={"#BDBDBD"}
@@ -79,11 +98,10 @@ export default function RegistrationScreen() {
                 }}
                 onBlur={() => {
                   setBorderInputColorName("#E8E8E8");
-                  setIsShowKeyboard(false);
                 }}
               />
               <TextInput
-                value={email}
+                value={formData.email}
                 onChangeText={emailHandler}
                 placeholder="Адреса електронної пошти"
                 placeholderTextColor={"#BDBDBD"}
@@ -99,12 +117,11 @@ export default function RegistrationScreen() {
                 }}
                 onBlur={() => {
                   setBorderInputColorEmail("#E8E8E8");
-                  setIsShowKeyboard(false);
                 }}
               />
               <View style={[styles.inputLayout, styles.inputGap]}>
                 <TextInput
-                  value={password}
+                  value={formData.password}
                   onChangeText={passwordHandler}
                   placeholder="Пароль"
                   secureTextEntry={showPassword}
@@ -119,7 +136,6 @@ export default function RegistrationScreen() {
                   }}
                   onBlur={() => {
                     setBorderInputColorPassword("#E8E8E8");
-                    setIsShowKeyboard(false);
                   }}
                 />
                 {showPassword ? (

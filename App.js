@@ -11,7 +11,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 // Components
 import RegistrationScreen from "./screens/RegistrationScreen/RegistrationScreen";
-// import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import LoginScreen from "./screens/LoginScreen/LoginScreen";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -39,8 +39,8 @@ export default function App() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <RegistrationScreen />
-        {/* <LoginScreen /> */}
+        {/* <RegistrationScreen /> */}
+        <LoginScreen />
       </View>
     </TouchableWithoutFeedback>
   );
