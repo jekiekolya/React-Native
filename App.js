@@ -12,23 +12,17 @@ import * as SplashScreen from "expo-splash-screen";
 
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 
-// Components
-import RegistrationScreen from "./screens/auth/RegistrationScreen/RegistrationScreen";
-import LoginScreen from "./screens/auth/LoginScreen/LoginScreen";
-import HomeScreen from "./screens/mainScreens/PostsScreen/PostsScreen";
-
-// Options for headers
-import headerOptions from "./helpers/headerOptions";
+// Auth
+import { useRoute } from "./router";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
-// Create Navigator
-const AuthStack = createStackNavigator();
-
 export default function App() {
+  // Auth
+  const routing = useRoute(true);
+
   // Upload all fonts
   const [fontsLoaded] = useFonts({
     "Roboto-Regulat": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
@@ -51,31 +45,7 @@ export default function App() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <NavigationContainer>
-          <AuthStack.Navigator initialRouteName="Login">
-            <AuthStack.Screen
-              name="Registration"
-              component={RegistrationScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <AuthStack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <AuthStack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{
-                ...headerOptions.homeHeaderOptions,
-              }}
-            />
-          </AuthStack.Navigator>
-        </NavigationContainer>
+        <NavigationContainer>{routing}</NavigationContainer>
       </View>
     </TouchableWithoutFeedback>
   );
