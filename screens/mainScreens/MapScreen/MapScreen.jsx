@@ -1,12 +1,12 @@
 import { Text, View } from "react-native";
 
 // Styles
-import styles from "./HomeScreen.Styled";
+import styles from "./MapScreen.Styled";
 
-export default function HomeScreen() {
+export default function MapScreen() {
   return (
     <View style={styles.container}>
-      <Text>HomeScreen</Text>
+      <Text>MapScreen</Text>
     </View>
   );
 }

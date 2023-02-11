@@ -6,15 +6,18 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+// Navigation
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
 // Components
-import RegistrationScreen from "./screens/RegistrationScreen/RegistrationScreen";
-import LoginScreen from "./screens/LoginScreen/LoginScreen";
-import HomeScreen from "./screens/HomeScreen/HomeScreen";
+import RegistrationScreen from "./screens/auth/RegistrationScreen/RegistrationScreen";
+import LoginScreen from "./screens/auth/LoginScreen/LoginScreen";
+import HomeScreen from "./screens/mainScreens/PostsScreen/PostsScreen";
 
 // Options for headers
 import headerOptions from "./helpers/headerOptions";
@@ -23,7 +26,7 @@ import headerOptions from "./helpers/headerOptions";
 SplashScreen.preventAutoHideAsync();
 
 // Create Navigator
-const MainStack = createStackNavigator();
+const AuthStack = createStackNavigator();
 
 export default function App() {
   // Upload all fonts
@@ -47,33 +50,33 @@ export default function App() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <NavigationContainer>
-        <View style={styles.container} onLayout={onLayoutRootView}>
-          <MainStack.Navigator initialRouteName="Login">
-            <MainStack.Screen
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        <NavigationContainer>
+          <AuthStack.Navigator initialRouteName="Login">
+            <AuthStack.Screen
               name="Registration"
               component={RegistrationScreen}
               options={{
                 headerShown: false,
               }}
             />
-            <MainStack.Screen
+            <AuthStack.Screen
               name="Login"
               component={LoginScreen}
               options={{
                 headerShown: false,
               }}
             />
-            <MainStack.Screen
+            <AuthStack.Screen
               name="Home"
               component={HomeScreen}
               options={{
                 ...headerOptions.homeHeaderOptions,
               }}
             />
-          </MainStack.Navigator>
-        </View>
-      </NavigationContainer>
+          </AuthStack.Navigator>
+        </NavigationContainer>
+      </View>
     </TouchableWithoutFeedback>
   );
 }

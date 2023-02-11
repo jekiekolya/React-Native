@@ -8,11 +8,11 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import { useKeyboard } from "../../helpers/useKeyboard";
+import { useKeyboard } from "../../../helpers/useKeyboard";
 
 // Components
-import BGScreen from "../../Components/BGScreen/BGScreen";
-import ImageForm from "../../Components/ImageForm/ImageForm";
+import BGScreen from "../../../Components/BGScreen/BGScreen";
+import ImageForm from "../../../Components/ImageForm/ImageForm";
 
 // Styles
 import styles from "./RegistrationScreen.Styled";
@@ -54,15 +54,12 @@ export default function RegistrationScreen({ navigation }) {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const onRegister = () => {
-    Alert.alert(
-      "Credentials",
-      `${formData.name} + ${formData.email} + ${formData.password}`
-    );
     console.log(
       "Credentials:",
       `${formData.name} + ${formData.email} + ${formData.password}`
     );
     setFormData(initialState);
+    navigation.navigate("Home");
   };
 
   return (
@@ -153,19 +150,16 @@ export default function RegistrationScreen({ navigation }) {
             onPress={onRegister}
             activeOpacity={0.8}
           >
+            <Text style={styles.textRegister}>Зареєструватися</Text>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.7}>
             <Text
-              style={styles.textRegister}
-              onPress={() => navigation.navigate("Home")}
+              style={styles.regNav}
+              onPress={() => navigation.navigate("Login")}
             >
-              Зареєструватися
+              Уже є акаунт? Увійти
             </Text>
           </TouchableOpacity>
-          <Text
-            style={styles.regNav}
-            onPress={() => navigation.navigate("Login")}
-          >
-            Уже є акаунт? Увійти
-          </Text>
         </View>
       </View>
     </BGScreen>

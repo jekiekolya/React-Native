@@ -8,10 +8,10 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import { useKeyboard } from "../../helpers/useKeyboard";
+import { useKeyboard } from "../../../helpers/useKeyboard";
 
 // Components
-import BGScreen from "../../Components/BGScreen/BGScreen";
+import BGScreen from "../../../Components/BGScreen/BGScreen";
 
 // Styles
 import styles from "./LoginScreen.Styled";
@@ -50,9 +50,9 @@ export default function LoginScreen({ navigation }) {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const onRegister = () => {
-    Alert.alert("Credentials", `${formData.email} + ${formData.password}`);
     console.log("Credentials:", `${formData.email} + ${formData.password}`);
     setFormData(initialState);
+    navigation.navigate("Home");
   };
 
   return (
@@ -124,19 +124,16 @@ export default function LoginScreen({ navigation }) {
             onPress={onRegister}
             activeOpacity={0.8}
           >
+            <Text style={styles.textRegister}>Увійти</Text>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.7}>
             <Text
-              style={styles.textRegister}
-              onPress={() => navigation.navigate("Home")}
+              style={styles.regNav}
+              onPress={() => navigation.navigate("Registration")}
             >
-              Увійти
+              Немає акаунт? Зареєструватися
             </Text>
           </TouchableOpacity>
-          <Text
-            style={styles.regNav}
-            onPress={() => navigation.navigate("Registration")}
-          >
-            Немає акаунт? Зареєструватися
-          </Text>
         </View>
       </View>
     </BGScreen>
