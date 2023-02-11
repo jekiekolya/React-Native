@@ -6,14 +6,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
-  Linking,
   TouchableOpacity,
 } from "react-native";
 import { useKeyboard } from "../../helpers/useKeyboard";
 
 // Components
-import BGScreen from "../BGScreen/BGScreen";
-import ImageForm from "../ImageForm/ImageForm";
+import BGScreen from "../../Components/BGScreen/BGScreen";
+import ImageForm from "../../Components/ImageForm/ImageForm";
 
 // Styles
 import styles from "./RegistrationScreen.Styled";
@@ -24,7 +23,7 @@ const initialState = {
   password: "",
 };
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({ navigation }) {
   const [formData, setFormData] = useState(initialState);
 
   const [showPassword, setShowPassword] = useState(true);
@@ -41,7 +40,9 @@ export default function RegistrationScreen() {
   useEffect(() => {
     if (heightKeyboard === 0) {
       setIsShowKeyboard(false);
+      return;
     }
+    setIsShowKeyboard(true);
   }, [heightKeyboard, setIsShowKeyboard]);
 
   // Event handlers
@@ -94,7 +95,6 @@ export default function RegistrationScreen() {
                 }}
                 onFocus={() => {
                   setBorderInputColorName("#FF6C00");
-                  setIsShowKeyboard(true);
                 }}
                 onBlur={() => {
                   setBorderInputColorName("#E8E8E8");
@@ -113,7 +113,6 @@ export default function RegistrationScreen() {
                 }}
                 onFocus={() => {
                   setBorderInputColorEmail("#FF6C00");
-                  setIsShowKeyboard(true);
                 }}
                 onBlur={() => {
                   setBorderInputColorEmail("#E8E8E8");
@@ -132,7 +131,6 @@ export default function RegistrationScreen() {
                   }}
                   onFocus={() => {
                     setBorderInputColorPassword("#FF6C00");
-                    setIsShowKeyboard(true);
                   }}
                   onBlur={() => {
                     setBorderInputColorPassword("#E8E8E8");
@@ -155,11 +153,16 @@ export default function RegistrationScreen() {
             onPress={onRegister}
             activeOpacity={0.8}
           >
-            <Text style={styles.textRegister}>Зареєструватися</Text>
+            <Text
+              style={styles.textRegister}
+              onPress={() => navigation.navigate("Home")}
+            >
+              Зареєструватися
+            </Text>
           </TouchableOpacity>
           <Text
             style={styles.regNav}
-            onPress={() => Linking.openURL("http://google.com")}
+            onPress={() => navigation.navigate("Login")}
           >
             Уже є акаунт? Увійти
           </Text>

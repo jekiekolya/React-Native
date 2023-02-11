@@ -6,13 +6,12 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
-  Linking,
   TouchableOpacity,
 } from "react-native";
 import { useKeyboard } from "../../helpers/useKeyboard";
 
 // Components
-import BGScreen from "../BGScreen/BGScreen";
+import BGScreen from "../../Components/BGScreen/BGScreen";
 
 // Styles
 import styles from "./LoginScreen.Styled";
@@ -22,7 +21,7 @@ const initialState = {
   password: "",
 };
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [formData, setFormData] = useState(initialState);
 
   const [showPassword, setShowPassword] = useState(true);
@@ -38,7 +37,9 @@ export default function LoginScreen() {
   useEffect(() => {
     if (heightKeyboard === 0) {
       setIsShowKeyboard(false);
+      return;
     }
+    setIsShowKeyboard(true);
   }, [heightKeyboard, setIsShowKeyboard]);
 
   // Event handlers
@@ -83,7 +84,6 @@ export default function LoginScreen() {
                 }}
                 onFocus={() => {
                   setBorderInputColorEmail("#FF6C00");
-                  setIsShowKeyboard(true);
                 }}
                 onBlur={() => {
                   setBorderInputColorEmail("#E8E8E8");
@@ -102,7 +102,6 @@ export default function LoginScreen() {
                   }}
                   onFocus={() => {
                     setBorderInputColorPassword("#FF6C00");
-                    setIsShowKeyboard(true);
                   }}
                   onBlur={() => {
                     setBorderInputColorPassword("#E8E8E8");
@@ -125,11 +124,16 @@ export default function LoginScreen() {
             onPress={onRegister}
             activeOpacity={0.8}
           >
-            <Text style={styles.textRegister}>Увійти</Text>
+            <Text
+              style={styles.textRegister}
+              onPress={() => navigation.navigate("Home")}
+            >
+              Увійти
+            </Text>
           </TouchableOpacity>
           <Text
             style={styles.regNav}
-            onPress={() => Linking.openURL("http://google.com")}
+            onPress={() => navigation.navigate("Registration")}
           >
             Немає акаунт? Зареєструватися
           </Text>
