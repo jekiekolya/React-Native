@@ -37,7 +37,7 @@ export default function ImageForm() {
         />
       )}
       {image ? (
-        <View style={styles.deleteBtnContainer}>
+        <View style={styles.uploadBtnContainer}>
           <TouchableOpacity onPress={deleteImage} activeOpacity={0.8}>
             <CrossIcon />
           </TouchableOpacity>
