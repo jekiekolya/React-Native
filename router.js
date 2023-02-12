@@ -10,6 +10,8 @@ import ProfileScreen from "./screens/mainScreens/ProfileScreen/ProfileScreen";
 
 // Options for routers
 import routerOptions from "./helpers/routerOptions";
+import { TouchableOpacity } from "react-native";
+import SvgArrowLeft from "./assets/images/routerIcons/SvgArrowLeft";
 
 // Create Navigator
 const AuthStack = createStackNavigator();
@@ -53,9 +55,9 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         name="CreatePost"
         component={CreatePostsScreen}
-        options={{
-          ...routerOptions.createPostOptions,
-        }}
+        options={({ navigation }) => ({
+          ...routerOptions.createPostOptions(navigation),
+        })}
       />
       <MainTab.Screen
         name="Profile"

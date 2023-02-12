@@ -26,6 +26,18 @@ const styles = StyleSheet.create({
 
     transform: [{ translateX: 25 / 2 }],
   },
+  deleteBtnContainer: {
+    position: "absolute",
+    bottom: 20,
+    right: 0,
+
+    width: 25,
+    height: 25,
+
+    backgroundColor: "transparent",
+
+    transform: [{ translateX: 13 / 2 }],
+  },
 });
 
 export default styles;
