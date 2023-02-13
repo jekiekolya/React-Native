@@ -2,12 +2,14 @@ import { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
+// Navigators
+import ProfileScreenNav from "./helpers/navigators/ProfileScreenNav";
+
 // Components
 import RegistrationScreen from "./screens/auth/RegistrationScreen/RegistrationScreen";
 import LoginScreen from "./screens/auth/LoginScreen/LoginScreen";
 import PostsScreen from "./screens/mainScreens/PostsScreen/PostsScreen";
 import CreatePostsScreen from "./screens/mainScreens/CreatePostsScreen/CreatePostsScreen";
-import ProfileScreen from "./screens/mainScreens/ProfileScreen/ProfileScreen";
 
 // Options for routers
 import routerOptions from "./helpers/routerOptions";
@@ -52,9 +54,11 @@ export const useRoute = () => {
       />
       <MainTab.Screen
         name="Profile"
-        options={{ ...routerOptions.profileOptions }}
+        options={({ navigation }) => ({
+          ...routerOptions.profileOptions(navigation),
+        })}
       >
-        {() => <ProfileScreen setIsAuth={setIsAuth} />}
+        {() => <ProfileScreenNav setIsAuth={setIsAuth} />}
       </MainTab.Screen>
     </MainTab.Navigator>
   );

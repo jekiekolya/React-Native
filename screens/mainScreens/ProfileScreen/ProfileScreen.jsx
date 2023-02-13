@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 // Components
 import BGScreen from "../../../Components/BGScreen/BGScreen";
@@ -23,6 +24,8 @@ import posts from "../../../api/posts";
 import styles from "./ProfileScreen.Style";
 
 export default function ProfileScreen({ setIsAuth }) {
+  const navigation = useNavigation();
+
   // handlers
   const logOut = () => {
     setIsAuth(false);
@@ -65,11 +68,20 @@ export default function ProfileScreen({ setIsAuth }) {
                       marginRight: 24,
                     }}
                   >
-                    {item.countComments === 0 ? (
-                      <CommentsEmptyIcon style={{ marginRight: 6 }} />
-                    ) : (
-                      <CommentsIcon style={{ marginRight: 6 }} />
-                    )}
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("CommentNav", {
+                          comments: item.comments,
+                        })
+                      }
+                      activeOpacity={0.8}
+                    >
+                      {item.countComments === 0 ? (
+                        <CommentsEmptyIcon style={{ marginRight: 6 }} />
+                      ) : (
+                        <CommentsIcon style={{ marginRight: 6 }} />
+                      )}
+                    </TouchableOpacity>
 
                     <Text style={styles.textPost}>{item.countComments}</Text>
                   </View>

@@ -1,5 +1,8 @@
 import { TouchableOpacity } from "react-native";
 
+// Helpers
+import getActiveRouteState from "./getActiveRouteState";
+
 // Icons
 import routerIcons from "../assets/images/routerIcons";
 const { SvgLogOut, SvgGrid, SvgPerson, SvgPlus, SvgArrowLeft } = routerIcons;
@@ -55,8 +58,9 @@ const postsOptions = (setIsAuth) => ({
         right: 16,
         bottom: 10,
       }}
+      onPress={() => setIsAuth(false)}
     >
-      <SvgLogOut onPress={() => setIsAuth(false)} />
+      <SvgLogOut />
     </TouchableOpacity>
   ),
 
@@ -102,8 +106,9 @@ function createPostOptions(navigation) {
           left: 16,
           bottom: 10,
         }}
+        onPress={() => navigation.goBack()}
       >
-        <SvgArrowLeft onPress={() => navigation.goBack()} />
+        <SvgArrowLeft />
       </TouchableOpacity>
     ),
 
@@ -121,20 +126,76 @@ function createPostOptions(navigation) {
 }
 
 // Profile screen
-const profileOptions = {
-  // Header
-  headerShown: false,
-  // TabBar
-  tabBarIcon: ({ focused, color, size }) => (
-    <SvgPerson color={color} size={size} />
-  ),
+const profileOptions = (navigation) => {
+  let navName = null;
+  if (navigation?.getState()) {
+    navName = getActiveRouteState(
+      getActiveRouteState(navigation?.getState())?.state
+    )?.name;
+  }
+
+  return {
+    // Header
+    headerShown: false,
+    // TabBar
+    tabBarStyle:
+      navName === "CommentNav"
+        ? { display: "none" }
+        : { ...tabBarOptions.tabBarStyle },
+    tabBarIcon: ({ focused, color, size }) => (
+      <SvgPerson color={color} size={size} />
+    ),
+  };
 };
+
+// Profile screen
+const commentsOptions = (navigation) => ({
+  // Header
+  title: "Коментарі",
+  headerStyle: {
+    height: 88,
+
+    backgroundColor: "#FFFFFF",
+    borderBottomWidth: 1,
+    borderBottomColor: "#b3b3b3",
+  },
+  headerTitleAlign: "center",
+  headerTitleContainerStyle: { paddingHorizontal: 16 },
+
+  headerTintColor: "#212121",
+  headerTitleStyle: {
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+    fontSize: 17,
+    lineHeight: 22,
+
+    bottom: 11,
+  },
+
+  headerLeft: () => (
+    <TouchableOpacity
+      activeOpacity={0.1}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+
+        left: 16,
+        bottom: 10,
+      }}
+      onPress={() => navigation.goBack()}
+    >
+      <SvgArrowLeft />
+    </TouchableOpacity>
+  ),
+});
 
 const routerOptions = {
   postsOptions,
   createPostOptions,
   profileOptions,
   tabBarOptions,
+  commentsOptions,
 };
 
 export default routerOptions;
