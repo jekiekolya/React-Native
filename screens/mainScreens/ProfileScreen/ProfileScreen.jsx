@@ -72,6 +72,7 @@ export default function ProfileScreen({ setIsAuth }) {
                       onPress={() =>
                         navigation.navigate("CommentNav", {
                           comments: item.comments,
+                          postImageUrl: item.imageUrl,
                         })
                       }
                       activeOpacity={0.8}

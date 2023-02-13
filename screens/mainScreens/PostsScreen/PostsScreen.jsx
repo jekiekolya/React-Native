@@ -1,4 +1,12 @@
-import { FlatList, Image, SafeAreaView, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import {
+  FlatList,
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 // Data
 import posts from "../../../api/posts";
@@ -13,6 +21,7 @@ import LocationIcon from "../../../assets/images/LocationIcon";
 import styles from "./PostsScreen.Styled";
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
   return (
     <SafeAreaView>
       <FlatList
@@ -47,11 +56,21 @@ export default function HomeScreen() {
                     marginRight: 24,
                   }}
                 >
-                  {item.countComments === 0 ? (
-                    <CommentsEmptyIcon style={{ marginRight: 6 }} />
-                  ) : (
-                    <CommentsIcon style={{ marginRight: 6 }} />
-                  )}
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("CommentNav", {
+                        comments: item.comments,
+                        postImageUrl: item.imageUrl,
+                      })
+                    }
+                    activeOpacity={0.8}
+                  >
+                    {item.countComments === 0 ? (
+                      <CommentsEmptyIcon style={{ marginRight: 6 }} />
+                    ) : (
+                      <CommentsIcon style={{ marginRight: 6 }} />
+                    )}
+                  </TouchableOpacity>
 
                   <Text style={styles.textPost}>{item.countComments}</Text>
                 </View>
