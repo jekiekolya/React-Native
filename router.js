@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 // Navigators
 import ProfileScreenNav from "./helpers/navigators/ProfileScreenNav";
+import PostsScreenNav from "./helpers/navigators/PostsScreenNav";
 
 // Components
 import RegistrationScreen from "./screens/auth/RegistrationScreen/RegistrationScreen";
@@ -42,9 +43,12 @@ export const useRoute = () => {
     >
       <MainTab.Screen
         name="Posts"
-        component={PostsScreen}
-        options={{ ...routerOptions.postsOptions(setIsAuth) }}
-      />
+        options={({ navigation }) => ({
+          ...routerOptions.postsNavOptions(navigation),
+        })}
+      >
+        {() => <PostsScreenNav setIsAuth={setIsAuth} />}
+      </MainTab.Screen>
       <MainTab.Screen
         name="CreatePost"
         component={CreatePostsScreen}

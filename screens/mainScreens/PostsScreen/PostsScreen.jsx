@@ -80,7 +80,15 @@ export default function HomeScreen() {
                   <Text style={styles.textPost}>{item.countLikes}</Text>
                 </View>
               </View>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("MapNav", {
+                    location: item.location,
+                  })
+                }
+                activeOpacity={0.8}
+                style={{ flexDirection: "row", alignItems: "center" }}
+              >
                 <LocationIcon style={{ marginRight: 4 }} />
                 <Text
                   style={{
@@ -90,7 +98,7 @@ export default function HomeScreen() {
                 >
                   {item.location}
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         )}
