@@ -104,7 +104,15 @@ export default function ProfileScreen({ setIsAuth }) {
                     <Text style={styles.textPost}>{item.countLikes}</Text>
                   </View>
                 </View>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("MapNav", {
+                      location: item.location,
+                    })
+                  }
+                  activeOpacity={0.8}
+                  style={{ flexDirection: "row", alignItems: "center" }}
+                >
                   <LocationIcon style={{ marginRight: 4 }} />
                   <Text
                     style={{
@@ -114,7 +122,7 @@ export default function ProfileScreen({ setIsAuth }) {
                   >
                     {item.location}
                   </Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           )}

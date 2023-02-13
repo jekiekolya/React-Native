@@ -32,7 +32,7 @@ const ProfileScreenNav = ({ setIsAuth }) => {
         name="MapNav"
         component={MapScreen}
         options={({ navigation }) => ({
-          ...routerOptions.commentsOptions(navigation),
+          ...routerOptions.mapOptions(navigation),
         })}
       />
     </ProfileNav.Navigator>

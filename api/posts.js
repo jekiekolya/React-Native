@@ -46,7 +46,7 @@ const posts = [
       "https://img.freepik.com/free-photo/wide-angle-shot-of-a-single-tree-growing-under-a-clouded-sky-during-a-sunset-surrounded-by-grass_181624-22807.jpg",
     countComments: 3,
     countLikes: 153,
-    location: "Ukraine",
+    location: "Rivne",
     comments: [
       {
         id: "1",
@@ -86,7 +86,7 @@ const posts = [
       "https://www.eea.europa.eu/themes/biodiversity/state-of-nature-in-the-eu/state-of-nature-2020-subtopic/image_print",
     countComments: 0,
     countLikes: 153,
-    location: "Ukraine",
+    location: "Lutsk",
     comments: [],
   },
   {
@@ -95,7 +95,7 @@ const posts = [
     imageUrl: "https://www.bsr.org/images/heroes/bsr-focus-nature-hero.jpg",
     countComments: 4,
     countLikes: 153,
-    location: "Ukraine",
+    location: "Simoniv",
     comments: [
       {
         id: "1",

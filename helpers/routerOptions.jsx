@@ -71,7 +71,7 @@ const postsOptions = (setIsAuth) => ({
 });
 
 // Create post screen
-function createPostOptions(navigation) {
+const createPostOptions = (navigation) => {
   return {
     // Header
     title: "Створити публікацію",
@@ -123,7 +123,7 @@ function createPostOptions(navigation) {
       borderRadius: 20,
     },
   };
-}
+};
 
 // Profile screen
 const profileOptions = (navigation) => {
@@ -148,10 +148,51 @@ const profileOptions = (navigation) => {
   };
 };
 
-// Profile screen
+// Comments screen
 const commentsOptions = (navigation) => ({
   // Header
   title: "Коментарі",
+  headerStyle: {
+    height: 88,
+
+    backgroundColor: "#FFFFFF",
+    borderBottomWidth: 1,
+    borderBottomColor: "#b3b3b3",
+  },
+  headerTitleAlign: "center",
+  headerTitleContainerStyle: { paddingHorizontal: 16 },
+
+  headerTintColor: "#212121",
+  headerTitleStyle: {
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+    fontSize: 17,
+    lineHeight: 22,
+
+    bottom: 11,
+  },
+
+  headerLeft: () => (
+    <TouchableOpacity
+      activeOpacity={0.1}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+
+        left: 16,
+        bottom: 10,
+      }}
+      onPress={() => navigation.goBack()}
+    >
+      <SvgArrowLeft />
+    </TouchableOpacity>
+  ),
+});
+// Map screen
+const mapOptions = (navigation) => ({
+  // Header
+  title: "Місце знаходження",
   headerStyle: {
     height: 88,
 
@@ -196,6 +237,7 @@ const routerOptions = {
   profileOptions,
   tabBarOptions,
   commentsOptions,
+  mapOptions,
 };
 
 export default routerOptions;
