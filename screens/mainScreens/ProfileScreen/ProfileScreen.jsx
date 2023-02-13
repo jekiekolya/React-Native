@@ -22,11 +22,10 @@ import posts from "../../../api/posts";
 // Styles
 import styles from "./ProfileScreen.Style";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ setIsAuth }) {
   // handlers
   const logOut = () => {
-    // navigation.navigate("Login");
-    console.log("LogOut");
+    setIsAuth(false);
   };
   return (
     <BGScreen style={{ marginBottom: -83 }}>

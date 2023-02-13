@@ -5,9 +5,9 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
-  Alert,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useKeyboard } from "../../../helpers/useKeyboard";
 
 // Components
@@ -21,9 +21,8 @@ const initialState = {
   password: "",
 };
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ setIsAuth }) {
   const [formData, setFormData] = useState(initialState);
-
   const [showPassword, setShowPassword] = useState(true);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
@@ -31,6 +30,8 @@ export default function LoginScreen({ navigation }) {
   const [borderInputColorEmail, setBorderInputColorEmail] = useState("#E8E8E8");
   const [borderInputColorPassword, setBorderInputColorPassword] =
     useState("#E8E8E8");
+
+  const navigation = useNavigation();
 
   // Height keyboard
   const heightKeyboard = useKeyboard();
@@ -49,10 +50,10 @@ export default function LoginScreen({ navigation }) {
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
-  const onRegister = () => {
+  const onLogin = () => {
     console.log("Credentials:", `${formData.email} + ${formData.password}`);
     setFormData(initialState);
-    navigation.navigate("Home");
+    setIsAuth(true);
   };
 
   return (
@@ -121,7 +122,7 @@ export default function LoginScreen({ navigation }) {
           </KeyboardAvoidingView>
           <TouchableOpacity
             style={styles.buttonRegister}
-            onPress={onRegister}
+            onPress={onLogin}
             activeOpacity={0.8}
           >
             <Text style={styles.textRegister}>Увійти</Text>

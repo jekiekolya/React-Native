@@ -21,7 +21,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   // Auth
-  const routing = useRoute(true);
+  const routing = useRoute();
 
   // Upload all fonts
   const [fontsLoaded] = useFonts({

@@ -5,9 +5,9 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
-  Alert,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useKeyboard } from "../../../helpers/useKeyboard";
 
 // Components
@@ -23,7 +23,7 @@ const initialState = {
   password: "",
 };
 
-export default function RegistrationScreen({ navigation }) {
+export default function RegistrationScreen({ setIsAuth }) {
   const [formData, setFormData] = useState(initialState);
 
   const [showPassword, setShowPassword] = useState(true);
@@ -34,6 +34,8 @@ export default function RegistrationScreen({ navigation }) {
   const [borderInputColorEmail, setBorderInputColorEmail] = useState("#E8E8E8");
   const [borderInputColorPassword, setBorderInputColorPassword] =
     useState("#E8E8E8");
+
+  const navigation = useNavigation();
 
   // Height keyboard
   const heightKeyboard = useKeyboard();
@@ -59,7 +61,7 @@ export default function RegistrationScreen({ navigation }) {
       `${formData.name} + ${formData.email} + ${formData.password}`
     );
     setFormData(initialState);
-    navigation.navigate("Home");
+    setIsAuth(true);
   };
 
   return (

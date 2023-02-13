@@ -22,7 +22,7 @@ const tabBarOptions = {
 };
 
 // Posts screen
-const postsOptions = {
+const postsOptions = (setIsAuth) => ({
   // Header
   title: "Публікації",
   headerStyle: {
@@ -56,7 +56,7 @@ const postsOptions = {
         bottom: 10,
       }}
     >
-      <SvgLogOut onPress={() => console.log("Logout")} />
+      <SvgLogOut onPress={() => setIsAuth(false)} />
     </TouchableOpacity>
   ),
 
@@ -64,7 +64,7 @@ const postsOptions = {
   tabBarIcon: ({ focused, color, size }) => (
     <SvgGrid color={color} size={size} top={0} />
   ),
-};
+});
 
 // Create post screen
 function createPostOptions(navigation) {
@@ -106,7 +106,6 @@ function createPostOptions(navigation) {
         <SvgArrowLeft onPress={() => navigation.goBack()} />
       </TouchableOpacity>
     ),
-    // backBehavior: initialRoute,
 
     // TabBar
     tabBarStyle: { display: "none" },

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -10,32 +11,24 @@ import ProfileScreen from "./screens/mainScreens/ProfileScreen/ProfileScreen";
 
 // Options for routers
 import routerOptions from "./helpers/routerOptions";
-import { TouchableOpacity } from "react-native";
-import SvgArrowLeft from "./assets/images/routerIcons/SvgArrowLeft";
 
 // Create Navigator
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
 // Auth
-export const useRoute = (isAuth) => {
+export const useRoute = () => {
+  const [isAuth, setIsAuth] = useState(false);
+
   if (!isAuth) {
     return (
       <AuthStack.Navigator initialRouteName="Login">
-        <AuthStack.Screen
-          name="Registration"
-          component={RegistrationScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <AuthStack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
+        <AuthStack.Screen name="Registration" options={{ headerShown: false }}>
+          {() => <RegistrationScreen setIsAuth={setIsAuth} />}
+        </AuthStack.Screen>
+        <AuthStack.Screen name="Login" options={{ headerShown: false }}>
+          {() => <LoginScreen setIsAuth={setIsAuth} />}
+        </AuthStack.Screen>
       </AuthStack.Navigator>
     );
   }
@@ -48,9 +41,7 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         name="Posts"
         component={PostsScreen}
-        options={{
-          ...routerOptions.postsOptions,
-        }}
+        options={{ ...routerOptions.postsOptions(setIsAuth) }}
       />
       <MainTab.Screen
         name="CreatePost"
@@ -61,11 +52,10 @@ export const useRoute = (isAuth) => {
       />
       <MainTab.Screen
         name="Profile"
-        component={ProfileScreen}
-        options={{
-          ...routerOptions.profileOptions,
-        }}
-      />
+        options={{ ...routerOptions.profileOptions }}
+      >
+        {() => <ProfileScreen setIsAuth={setIsAuth} />}
+      </MainTab.Screen>
     </MainTab.Navigator>
   );
 };
