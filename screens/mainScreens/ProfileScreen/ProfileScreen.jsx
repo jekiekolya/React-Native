@@ -42,7 +42,7 @@ export default function ProfileScreen() {
 
           <Text style={styles.userName}>Natali Romanova</Text>
 
-          <View style={{ paddingBottom: 94 }}>
+          <View style={{ paddingBottom: 83 }}>
             <FlatList
               data={posts}
               renderItem={({ item }) => (

@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
 
     transform: [{ translateX: (-120 + 32) / 2 }, { translateY: -120 / 2 }],
+    zIndex: 1000,
   },
   uploadBtnContainer: {
     position: "absolute",
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
 
     transform: [{ translateX: 25 / 2 }],
+    zIndex: 10000,
   },
   deleteBtnContainer: {
     position: "absolute",
@@ -36,7 +38,8 @@ const styles = StyleSheet.create({
 
     backgroundColor: "transparent",
 
-    transform: [{ translateX: 13 / 2 }],
+    transform: [{ translateX: 14 / 2 }],
+    zIndex: 10000,
   },
 });
 
