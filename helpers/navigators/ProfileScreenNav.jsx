@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 // Components
 import ProfileScreen from "../../screens/mainScreens/ProfileScreen/ProfileScreen";
 import CommentScreen from "../../screens/mainScreens/CommentsScreen/CommentsScreen";
+import MapScreen from "../../screens/mainScreens/MapScreen/MapScreen";
 
 // Options
 import routerOptions from "../routerOptions";
@@ -23,6 +24,13 @@ const ProfileScreenNav = ({ setIsAuth }) => {
       <ProfileNav.Screen
         name="CommentNav"
         component={CommentScreen}
+        options={({ navigation }) => ({
+          ...routerOptions.commentsOptions(navigation),
+        })}
+      />
+      <ProfileNav.Screen
+        name="MapNav"
+        component={MapScreen}
         options={({ navigation }) => ({
           ...routerOptions.commentsOptions(navigation),
         })}

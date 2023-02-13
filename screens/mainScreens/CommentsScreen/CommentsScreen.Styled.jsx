@@ -50,14 +50,12 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontSize: 10,
     lineHeight: 12,
-    textAlign: "right",
 
     color: "#BDBDBD",
   },
   containerListFooter: {
-    flexGrow: 1,
-
     paddingBottom: 81,
+    backgroundColor: "#FFFFFF",
   },
   containerFooter: {
     flex: 1,
@@ -69,8 +67,7 @@ const styles = StyleSheet.create({
 
     padding: 16,
 
-    // backgroundColor: "#FFFFFF",
-    backgroundColor: "red",
+    backgroundColor: "#FFFFFF",
   },
   commentInput: {
     position: "relative",

@@ -23,8 +23,9 @@ import styles from "./PostsScreen.Styled";
 export default function HomeScreen() {
   const navigation = useNavigation();
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ height: "100%" }}>
       <FlatList
+        style={{ backgroundColor: "#FFFFFF" }}
         data={posts}
         ListHeaderComponent={
           <View style={styles.containerHeader}>

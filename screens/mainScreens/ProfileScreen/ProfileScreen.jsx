@@ -32,7 +32,13 @@ export default function ProfileScreen({ setIsAuth }) {
   };
   return (
     <BGScreen style={{ marginBottom: -83 }}>
-      <SafeAreaView style={{ marginBottom: 83 }}>
+      <SafeAreaView
+        style={{
+          marginBottom: 83,
+          width: "100%",
+          minHeight: 665,
+        }}
+      >
         <FlatList
           data={posts}
           ListHeaderComponent={
@@ -49,7 +55,14 @@ export default function ProfileScreen({ setIsAuth }) {
               <Text style={styles.userName}>Natali Romanova</Text>
             </View>
           }
-          ListFooterComponent={<View style={styles.containerFooter} />}
+          ListFooterComponent={
+            <View
+              style={{
+                ...styles.containerFooter,
+                minHeight: posts.length === 0 ? 392 : 11,
+              }}
+            />
+          }
           renderItem={({ item }) => (
             <View style={styles.listItem}>
               <Image

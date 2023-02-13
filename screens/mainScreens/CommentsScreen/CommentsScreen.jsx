@@ -31,9 +31,10 @@ export default function CommentsScreen({ route }) {
     setComment("");
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ height: "100%" }}>
       <FlatList
         data={comments}
+        style={{ backgroundColor: "#FFFFFF" }}
         ListHeaderComponent={
           <View style={styles.containerHeader}>
             <Image source={{ uri: postImageUrl }} style={styles.postPhoto} />
@@ -58,10 +59,19 @@ export default function CommentsScreen({ route }) {
             <View
               style={{
                 ...styles.commentWrapper,
+                borderTopRightRadius: item.owner ? 0 : 16,
+                borderTopLeftRadius: !item.owner ? 0 : 16,
               }}
             >
               <Text style={styles.commentAuthor}>{item.comment}</Text>
-              <Text style={styles.commentDate}>{item.createdAt}</Text>
+              <Text
+                style={{
+                  ...styles.commentDate,
+                  textAlign: item.owner ? "left" : "right",
+                }}
+              >
+                {item.createdAt}
+              </Text>
             </View>
           </View>
         )}
