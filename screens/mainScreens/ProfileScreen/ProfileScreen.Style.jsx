@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
+  containerHeader: {
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
@@ -15,6 +15,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+  },
+  containerFooter: {
+    width: "100%",
+    height: 11,
+    backgroundColor: "#FFFFFF",
   },
   logOutIcon: {
     position: "absolute",
@@ -31,6 +36,12 @@ const styles = StyleSheet.create({
     letterSpacing: 30 * 0.01,
 
     color: "#212121",
+  },
+  listItem: {
+    width: "100%",
+    paddingHorizontal: 16,
+
+    backgroundColor: "#FFFFFF",
   },
   imagePost: {
     width: "100%",
