@@ -12,10 +12,10 @@ import {
 import posts from "../../../api/posts";
 
 // Components
-import CommentsEmptyIcon from "../../../assets/images/CommentsEmptyIcon";
-import CommentsIcon from "../../../assets/images/CommentsIcon";
-import LikeIcon from "../../../assets/images/LikeIcon";
-import LocationIcon from "../../../assets/images/LocationIcon";
+import CommentsEmptyIcon from "../../../assets/images/screenIcons/CommentsEmptyIcon";
+import CommentsIcon from "../../../assets/images/screenIcons/CommentsIcon";
+import LikeIcon from "../../../assets/images/screenIcons/LikeIcon";
+import LocationIcon from "../../../assets/images/screenIcons/LocationIcon";
 
 // Styles
 import styles from "./PostsScreen.Styled";

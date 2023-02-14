@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 // Components
-import ArrowUpIcon from "../../../assets/images/ArrowUpIcon";
+import ArrowUpIcon from "../../../assets/images/screenIcons/ArrowUpIcon";
 
 // Styles
 import styles from "./CommentsScreen.Styled";

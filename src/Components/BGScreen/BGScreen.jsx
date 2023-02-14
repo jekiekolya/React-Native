@@ -2,7 +2,7 @@ import { ImageBackground } from "react-native";
 
 import styles from "./BGScreen.Styled";
 
-const BGImage = require("../../assets/images/bg_auth.png");
+const BGImage = require("../../assets/images/screenIcons/bg_auth.png");
 
 export default function BGScreen({ children, style }) {
   return (

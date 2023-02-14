@@ -9,7 +9,6 @@ import PostsScreenNav from "./helpers/navigators/PostsScreenNav";
 // Components
 import RegistrationScreen from "./screens/auth/RegistrationScreen/RegistrationScreen";
 import LoginScreen from "./screens/auth/LoginScreen/LoginScreen";
-import PostsScreen from "./screens/mainScreens/PostsScreen/PostsScreen";
 import CreatePostsScreen from "./screens/mainScreens/CreatePostsScreen/CreatePostsScreen";
 
 // Options for routers

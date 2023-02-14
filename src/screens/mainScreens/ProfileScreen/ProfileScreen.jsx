@@ -12,10 +12,10 @@ import { useNavigation } from "@react-navigation/native";
 import BGScreen from "../../../Components/BGScreen/BGScreen";
 import ImageForm from "../../../Components/ImageForm/ImageForm";
 import LogOut from "../../../assets/images/routerIcons/SvgLogOut";
-import CommentsIcon from "../../../assets/images/CommentsIcon";
-import LikeIcon from "../../../assets/images/LikeIcon";
-import LocationIcon from "../../../assets/images/LocationIcon";
-import CommentsEmptyIcon from "../../../assets/images/CommentsEmptyIcon";
+import CommentsIcon from "../../../assets/images/screenIcons/CommentsIcon";
+import LikeIcon from "../../../assets/images/screenIcons/LikeIcon";
+import LocationIcon from "../../../assets/images/screenIcons/LocationIcon";
+import CommentsEmptyIcon from "../../../assets/images/screenIcons/CommentsEmptyIcon";
 
 // Data
 import posts from "../../../api/posts";

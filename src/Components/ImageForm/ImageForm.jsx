@@ -3,8 +3,8 @@ import { Image, View, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 // Components
-import AddIcon from "../../assets/images/AddIcon";
-import CrossIcon from "../../assets/images/CrossIcon";
+import AddIcon from "../../assets/images/screenIcons/AddIcon";
+import CrossIcon from "../../assets/images/screenIcons/CrossIcon";
 
 // Styles
 import styles from "./ImageForm.styled";

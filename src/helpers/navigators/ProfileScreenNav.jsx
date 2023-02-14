@@ -2,8 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 // Components
 import ProfileScreen from "../../screens/mainScreens/ProfileScreen/ProfileScreen";
-import CommentScreen from "../../screens/mainScreens/CommentsScreen/CommentsScreen";
-import MapScreen from "../../screens/mainScreens/MapScreen/MapScreen";
+import CommentScreen from "../../screens/secondaryScreens/CommentsScreen/CommentsScreen";
+import MapScreen from "../../screens/secondaryScreens/MapScreen/MapScreen";
 
 // Options
 import routerOptions from "../routerOptions";

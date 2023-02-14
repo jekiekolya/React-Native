@@ -5,9 +5,9 @@ import * as ImagePicker from "expo-image-picker";
 import { useKeyboard } from "../../../helpers/useKeyboard";
 
 // Components
-import CameraIcon from "../../../assets/images/CameraIcon";
-import LocationIcon from "../../../assets/images/LocationIcon";
-import TrashIcon from "../../../assets/images/TrashIcon";
+import CameraIcon from "../../../assets/images/screenIcons/CameraIcon";
+import LocationIcon from "../../../assets/images/screenIcons/LocationIcon";
+import TrashIcon from "../../../assets/images/screenIcons/TrashIcon";
 
 // Styles
 import styles from "./CreatePostsScreen.Styled";
