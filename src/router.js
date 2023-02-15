@@ -12,7 +12,7 @@ import LoginScreen from "./screens/auth/LoginScreen/LoginScreen";
 import CreatePostsScreen from "./screens/mainScreens/CreatePostsScreen/CreatePostsScreen";
 
 // Options for routers
-import routerOptions from "./helpers/routerOptions/index";
+import routerOptions from "./routerOptions";
 
 // Create Navigator
 const AuthStack = createStackNavigator();

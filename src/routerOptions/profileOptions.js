@@ -1,12 +1,11 @@
 import tabBarOptions from "./tabBarOptions";
-// Helpers
-import getActiveRouteState from "../getActiveRouteState";
 
+import getActiveRouteState from "../helpers/getActiveRouteState";
 // Icons
-import routerIcons from "../../assets/images/routerIcons";
-const { SvgGrid } = routerIcons;
+import routerIcons from "../assets/images/routerIcons";
+const { SvgPerson } = routerIcons;
 
-const postsNavOptions = (navigation) => {
+const profileOptions = (navigation) => {
   let navName = null;
   if (navigation?.getState()) {
     navName = getActiveRouteState(
@@ -23,9 +22,9 @@ const postsNavOptions = (navigation) => {
         ? { display: "none" }
         : { ...tabBarOptions.tabBarStyle },
     tabBarIcon: ({ focused, color, size }) => (
-      <SvgGrid color={color} size={size} top={0} />
+      <SvgPerson color={color} size={size} />
     ),
   };
 };
 
-export default postsNavOptions;
+export default profileOptions;

@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "react-native";
 
 // Icons
-import routerIcons from "../../assets/images/routerIcons";
+import routerIcons from "../assets/images/routerIcons";
 const { SvgArrowLeft } = routerIcons;
 
 const mapOptions = (navigation) => ({

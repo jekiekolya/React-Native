@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "react-native";
 
 // Icons
-import routerIcons from "../../assets/images/routerIcons";
+import routerIcons from "../assets/images/routerIcons";
 const { SvgLogOut, SvgGrid } = routerIcons;
 
 const postsOptions = (setIsAuth) => {

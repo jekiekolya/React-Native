@@ -6,7 +6,7 @@ import CommentScreen from "../../nestedScreens/CommentsScreen/CommentsScreen";
 import MapScreen from "../../nestedScreens/MapScreen/MapScreen";
 
 // Options
-import routerOptions from "../../../helpers/routerOptions";
+import routerOptions from "../../../routerOptions";
 
 const PostsNav = createStackNavigator();
 
