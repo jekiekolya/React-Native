@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import { Camera } from "expo-camera";
+import * as Location from "expo-location";
 
 import { useKeyboard } from "../../../helpers/useKeyboard";
 
@@ -25,11 +26,16 @@ import styles from "./CreatePostsScreen.Styled";
 const initialState = {
   postName: "",
   postLocation: "",
+  locationData: {
+    latitude: 0,
+    longitude: 0,
+  },
 };
 
 export default function CreatePostsScreen() {
   const [image, setImage] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
+
   const [camera, setCamera] = useState(null);
   const [cameraIsOpen, setCameraIsOpen] = useState(false);
 
@@ -60,10 +66,30 @@ export default function CreatePostsScreen() {
     if (cameraIsOpen) {
       (async () => {
         try {
-          const { status } = await Camera.requestCameraPermissionsAsync();
-          await MediaLibrary.requestPermissionsAsync();
+          const resCamera = await Camera.requestCameraPermissionsAsync();
+          const resMedia = await MediaLibrary.requestPermissionsAsync();
+          const resLocation =
+            await Location.requestForegroundPermissionsAsync();
 
-          setHasPermission(status === "granted");
+          const statusCamera = resCamera.status;
+          const statusMedia = resMedia.status;
+          const statusLocation = resLocation.status;
+
+          setHasPermission(
+            statusCamera === "granted" &&
+              statusMedia === "granted" &&
+              statusLocation === "granted"
+          );
+
+          const { coords } = await Location.getCurrentPositionAsync();
+
+          setPost((p) => ({
+            ...p,
+            locationData: {
+              latitude: coords.latitude,
+              longitude: coords.longitude,
+            },
+          }));
         } catch (error) {
           console.log(error);
         }
@@ -103,7 +129,7 @@ export default function CreatePostsScreen() {
     setPost((p) => ({ ...p, postLocation: text }));
 
   const onCreatePost = () => {
-    console.log("create post");
+    console.log(post);
   };
 
   const onResetForm = () => {
@@ -118,11 +144,31 @@ export default function CreatePostsScreen() {
       {cameraIsOpen ? (
         <Camera style={styles.cameraWrapper} ref={setCamera}>
           {hasPermission === false ? (
-            <View style={styles.NoAccessTextWrapper}>
-              <Text style={{ color: "#9f9f9f", fontSize: 24 }}>
-                No access to camera
-              </Text>
-            </View>
+            <>
+              <View style={styles.NoAccessTextWrapper}>
+                <Text
+                  style={{
+                    color: "#9f9f9f",
+                    fontSize: 24,
+                    textAlign: "center",
+                  }}
+                >
+                  No access to camera, media library or location
+                </Text>
+              </View>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={onCameraToggle}
+                style={{
+                  ...styles.closeCameraWrapper,
+                  backgroundColor: "rgba(75, 75, 75, 0.7)",
+                }}
+              >
+                <ArrowLeftIcon style={{ marginRight: 8, stroke: "#fff" }} />
+
+                <Text style={styles.closeCameraText}>Close camera</Text>
+              </TouchableOpacity>
+            </>
           ) : (
             <>
               {image && (
