@@ -1,3 +1,4 @@
+import tabBarOptions from "./tabBarOptions";
 // Helpers
 import getActiveRouteState from "../getActiveRouteState";
 

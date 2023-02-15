@@ -1,3 +1,6 @@
+import tabBarOptions from "./tabBarOptions";
+
+import getActiveRouteState from "../getActiveRouteState";
 // Icons
 import routerIcons from "../../assets/images/routerIcons";
 const { SvgPerson } = routerIcons;

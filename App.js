@@ -14,7 +14,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
 
 // Auth
-import { useRoute } from "./router";
+import { useRoute } from "./src/router";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -25,9 +25,9 @@ export default function App() {
 
   // Upload all fonts
   const [fontsLoaded] = useFonts({
-    "Roboto-Regulat": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
-    "Roboto-Medium": require("./assets/fonts/Roboto/Roboto-Medium.ttf"),
-    "Roboto-Bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+    "Roboto-Regulat": require("./src/assets/fonts/Roboto/Roboto-Regular.ttf"),
+    "Roboto-Medium": require("./src/assets/fonts/Roboto/Roboto-Medium.ttf"),
+    "Roboto-Bold": require("./src/assets/fonts/Roboto/Roboto-Bold.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {

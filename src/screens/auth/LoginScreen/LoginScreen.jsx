@@ -127,13 +127,11 @@ export default function LoginScreen({ setIsAuth }) {
           >
             <Text style={styles.textRegister}>Увійти</Text>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.7}>
-            <Text
-              style={styles.regNav}
-              onPress={() => navigation.navigate("Registration")}
-            >
-              Немає акаунт? Зареєструватися
-            </Text>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate("Registration")}
+          >
+            <Text style={styles.regNav}>Немає акаунт? Зареєструватися</Text>
           </TouchableOpacity>
         </View>
       </View>

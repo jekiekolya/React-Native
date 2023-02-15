@@ -154,13 +154,11 @@ export default function RegistrationScreen({ setIsAuth }) {
           >
             <Text style={styles.textRegister}>Зареєструватися</Text>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.7}>
-            <Text
-              style={styles.regNav}
-              onPress={() => navigation.navigate("Login")}
-            >
-              Уже є акаунт? Увійти
-            </Text>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate("Login")}
+          >
+            <Text style={styles.regNav}>Уже є акаунт? Увійти</Text>
           </TouchableOpacity>
         </View>
       </View>
