@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexGrow: 10000,
     width: "100%",
-    minHeight: 11,
+    minHeight: 30,
 
     backgroundColor: "#FFFFFF",
   },
