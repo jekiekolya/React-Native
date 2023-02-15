@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View, Image, TextInput } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import { Camera } from "expo-camera";
 
@@ -52,7 +60,6 @@ export default function CreatePostsScreen() {
     if (cameraIsOpen) {
       (async () => {
         try {
-          console.log(camera);
           const { status } = await Camera.requestCameraPermissionsAsync();
           await MediaLibrary.requestPermissionsAsync();
 
@@ -63,12 +70,7 @@ export default function CreatePostsScreen() {
       })();
     }
   }, [cameraIsOpen]);
-  // if (hasPermission === null && cameraIsOpen) {
-  //   return <View />;
-  // }
-  // if (hasPermission === false && cameraIsOpen) {
-  //   return <Text>No access to camera</Text>;
-  // }
+
   // Activate button create post
   useEffect(() => {
     if (image && post.postName && post.postLocation && !isShowKeyboard) {
@@ -105,7 +107,6 @@ export default function CreatePostsScreen() {
   };
 
   const onResetForm = () => {
-    console.log("reset form");
     setImage(null);
     setPost(initialState);
     setIsReadyReset(false);
@@ -113,7 +114,7 @@ export default function CreatePostsScreen() {
   };
 
   return (
-    <>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       {cameraIsOpen ? (
         <Camera style={styles.cameraWrapper} ref={setCamera}>
           {hasPermission === false ? (
@@ -278,6 +279,6 @@ export default function CreatePostsScreen() {
           </View>
         </View>
       )}
-    </>
+    </TouchableWithoutFeedback>
   );
 }
