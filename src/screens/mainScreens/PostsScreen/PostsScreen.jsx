@@ -94,6 +94,8 @@ export default function PostsScreen() {
                 onPress={() =>
                   navigation.navigate("MapNav", {
                     location: item.location,
+                    locationData: item.locationData,
+
                   })
                 }
                 activeOpacity={0.8}
