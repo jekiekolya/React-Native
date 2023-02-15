@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import * as MediaLibrary from "expo-media-library";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
@@ -20,12 +21,15 @@ import LocationIcon from "../../../assets/images/screenIcons/LocationIcon";
 import TrashIcon from "../../../assets/images/screenIcons/TrashIcon";
 import ArrowLeftIcon from "../../../assets/images/screenIcons/ArrowLeftIcon";
 
+// helpers
+import createPost from "../../../helpers/createPost";
+
 // Styles
 import styles from "./CreatePostsScreen.Styled";
 
 const initialState = {
-  postName: "",
-  postLocation: "",
+  title: "",
+  location: "",
   locationData: {
     latitude: 0,
     longitude: 0,
@@ -46,10 +50,12 @@ export default function CreatePostsScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   // State for styles
-  const [borderInputColorPostName, setBorderInputColorPostName] =
-    useState("#E8E8E8");
+  const [borderInputColorTitle, setBorderInputColorTitle] = useState("#E8E8E8");
   const [borderInputColorPostLocation, setBorderInputColorPostLocation] =
     useState("#E8E8E8");
+
+  // Navigation
+  const navigation = useNavigation();
 
   // Height keyboard
   const heightKeyboard = useKeyboard();
@@ -61,7 +67,7 @@ export default function CreatePostsScreen() {
     setIsShowKeyboard(true);
   }, [heightKeyboard, setIsShowKeyboard]);
 
-  // Get permission to camera and media library
+  // Get permission to camera, location and media library
   useEffect(() => {
     if (cameraIsOpen) {
       (async () => {
@@ -99,19 +105,13 @@ export default function CreatePostsScreen() {
 
   // Activate button create post
   useEffect(() => {
-    if (image && post.postName && post.postLocation && !isShowKeyboard) {
+    if (image && post.title && post.location && !isShowKeyboard) {
       setIsReadyCreate(true);
     }
-    if (image || post.postName || post.postLocation) {
+    if (image || post.title || post.location) {
       setIsReadyReset(true);
     }
-  }, [
-    image,
-    post.postName,
-    post.postLocation,
-    isShowKeyboard,
-    setIsReadyCreate,
-  ]);
+  }, [image, post.title, post.location, isShowKeyboard, setIsReadyCreate]);
 
   // handlers
   const onCameraToggle = () => {
@@ -121,22 +121,25 @@ export default function CreatePostsScreen() {
   const takePhoto = async () => {
     const photo = await camera.takePictureAsync();
     setImage(photo.uri);
-    console.log(photo.uri);
   };
 
-  const postNameHandler = (text) => setPost((p) => ({ ...p, postName: text }));
+  const titleHandler = (text) => setPost((p) => ({ ...p, title: text }));
   const postLocationHandler = (text) =>
-    setPost((p) => ({ ...p, postLocation: text }));
-
-  const onCreatePost = () => {
-    console.log(post);
-  };
+    setPost((p) => ({ ...p, location: text }));
 
   const onResetForm = () => {
     setImage(null);
     setPost(initialState);
     setIsReadyReset(false);
     setIsReadyCreate(false);
+  };
+
+  const onCreatePost = () => {
+    const newPost = createPost({ ...post, imageUrl: image });
+    navigation.navigate("PostsNav", {
+      newPost: newPost,
+    });
+    onResetForm();
   };
 
   return (
@@ -243,26 +246,26 @@ export default function CreatePostsScreen() {
           )}
           <View style={styles.formWrapper}>
             <TextInput
-              value={post.postName}
-              onChangeText={postNameHandler}
+              value={post.title}
+              onChangeText={titleHandler}
               placeholder="Опис фото..."
               placeholderTextColor={"#BDBDBD"}
               placeholderFontWeight={"regular"}
               style={{
                 ...styles.input,
-                borderColor: borderInputColorPostName,
+                borderColor: borderInputColorTitle,
                 fontWeight: "bold",
               }}
               onFocus={() => {
-                setBorderInputColorPostName("#FF6C00");
+                setBorderInputColorTitle("#FF6C00");
               }}
               onBlur={() => {
-                setBorderInputColorPostName("#E8E8E8");
+                setBorderInputColorTitle("#E8E8E8");
               }}
             />
             <View style={{ position: "relative" }}>
               <TextInput
-                value={post.postLocation}
+                value={post.location}
                 onChangeText={postLocationHandler}
                 placeholder="Місце знаходження..."
                 placeholderTextColor={"#BDBDBD"}

@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
   },
   containerFooter: {
     flex: 1,
+    flexGrow: 10000,
     width: "100%",
+    minHeight: 11,
 
     backgroundColor: "#FFFFFF",
   },

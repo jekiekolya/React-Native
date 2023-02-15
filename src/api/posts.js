@@ -4,9 +4,9 @@ const posts = [
     title: "Post 1",
     imageUrl:
       "https://img.itinari.com/countries/ua-ukraine.jpg?ch=DPR&dpr=2.625&w=1600&s=76b48d9430a1bdc555274df0fa944579",
-    countComments: 3,
     countLikes: 153,
     location: "Ukraine",
+    locationData: { latitude: 37.4220936, longitude: -122.083922 },
     comments: [
       {
         id: "1",
@@ -44,9 +44,9 @@ const posts = [
     title: "Post 2",
     imageUrl:
       "https://img.freepik.com/free-photo/wide-angle-shot-of-a-single-tree-growing-under-a-clouded-sky-during-a-sunset-surrounded-by-grass_181624-22807.jpg",
-    countComments: 3,
     countLikes: 153,
     location: "Rivne",
+    locationData: { latitude: 37.4220936, longitude: -122.083922 },
     comments: [
       {
         id: "1",
@@ -84,9 +84,9 @@ const posts = [
     title: "Post 3",
     imageUrl:
       "https://www.eea.europa.eu/themes/biodiversity/state-of-nature-in-the-eu/state-of-nature-2020-subtopic/image_print",
-    countComments: 1,
     countLikes: 153,
     location: "Lutsk",
+    locationData: { latitude: 37.4220936, longitude: -122.083922 },
     comments: [
       {
         id: "1",
@@ -104,9 +104,9 @@ const posts = [
     id: "4",
     title: "Post 4",
     imageUrl: "https://www.bsr.org/images/heroes/bsr-focus-nature-hero.jpg",
-    countComments: 4,
     countLikes: 153,
     location: "Simoniv",
+    locationData: { latitude: 37.4220936, longitude: -122.083922 },
     comments: [
       {
         id: "1",

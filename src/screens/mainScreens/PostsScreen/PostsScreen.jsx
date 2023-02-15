@@ -1,4 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   FlatList,
   Image,
@@ -20,8 +21,17 @@ import LocationIcon from "../../../assets/images/screenIcons/LocationIcon";
 // Styles
 import styles from "./PostsScreen.Styled";
 
-export default function HomeScreen() {
+export default function PostsScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+  useEffect(() => {
+    if (route?.params?.newPost) {
+      const newPost = route.params.newPost;
+      console.log("newPost", newPost);
+      posts.unshift(newPost);
+    }
+  }, [route?.params?.newPost]);
+
   return (
     <SafeAreaView style={{ height: "100%" }}>
       <FlatList
@@ -66,14 +76,14 @@ export default function HomeScreen() {
                     }
                     activeOpacity={0.8}
                   >
-                    {item.countComments === 0 ? (
+                    {item.comments.length === 0 ? (
                       <CommentsEmptyIcon style={{ marginRight: 6 }} />
                     ) : (
                       <CommentsIcon style={{ marginRight: 6 }} />
                     )}
                   </TouchableOpacity>
 
-                  <Text style={styles.textPost}>{item.countComments}</Text>
+                  <Text style={styles.textPost}>{item.comments.length}</Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <LikeIcon style={{ marginRight: 6 }} />

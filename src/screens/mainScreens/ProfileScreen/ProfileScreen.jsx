@@ -34,7 +34,7 @@ export default function ProfileScreen({ setIsAuth }) {
     <BGScreen style={{ marginBottom: -83 }}>
       <SafeAreaView
         style={{
-          marginBottom: 83,
+          marginBottom: 50,
           width: "100%",
           minHeight: 665,
         }}
@@ -59,8 +59,6 @@ export default function ProfileScreen({ setIsAuth }) {
             <View
               style={{
                 ...styles.containerFooter,
-                minHeight:
-                  posts.length === 0 ? 392 : posts.length === 1 ? 57 : 11,
               }}
             />
           }
@@ -91,14 +89,14 @@ export default function ProfileScreen({ setIsAuth }) {
                       }
                       activeOpacity={0.8}
                     >
-                      {item.countComments === 0 ? (
+                      {item.comments.length === 0 ? (
                         <CommentsEmptyIcon style={{ marginRight: 6 }} />
                       ) : (
                         <CommentsIcon style={{ marginRight: 6 }} />
                       )}
                     </TouchableOpacity>
 
-                    <Text style={styles.textPost}>{item.countComments}</Text>
+                    <Text style={styles.textPost}>{item.comments.length}</Text>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <LikeIcon style={{ marginRight: 6 }} />
@@ -128,6 +126,13 @@ export default function ProfileScreen({ setIsAuth }) {
             </View>
           )}
           keyExtractor={(item) => item.id}
+        />
+        <View
+          style={{
+            marginTop: -1,
+            flexGrow: 10 ** 10,
+            backgroundColor: "#FFFFFF",
+          }}
         />
       </SafeAreaView>
     </BGScreen>
