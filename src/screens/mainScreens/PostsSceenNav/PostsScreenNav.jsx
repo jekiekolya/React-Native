@@ -1,12 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 // Components
-import PostsScreen from "../../screens/mainScreens/PostsScreen/PostsScreen";
-import CommentScreen from "../../screens/secondaryScreens/CommentsScreen/CommentsScreen";
-import MapScreen from "../../screens/secondaryScreens/MapScreen/MapScreen";
+import PostsScreen from "../../nestedScreens/PostsScreen/PostsScreen";
+import CommentScreen from "../../nestedScreens/CommentsScreen/CommentsScreen";
+import MapScreen from "../../nestedScreens/MapScreen/MapScreen";
 
 // Options
-import routerOptions from "../routerOptions";
+import routerOptions from "../../../helpers/routerOptions";
 
 const PostsNav = createStackNavigator();
 

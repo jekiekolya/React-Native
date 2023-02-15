@@ -1,12 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 // Components
-import ProfileScreen from "../../screens/mainScreens/ProfileScreen/ProfileScreen";
-import CommentScreen from "../../screens/secondaryScreens/CommentsScreen/CommentsScreen";
-import MapScreen from "../../screens/secondaryScreens/MapScreen/MapScreen";
+import ProfileScreen from "../../nestedScreens/ProfileScreen/ProfileScreen";
+import CommentScreen from "../../nestedScreens/CommentsScreen/CommentsScreen";
+import MapScreen from "../../nestedScreens/MapScreen/MapScreen";
 
 // Options
-import routerOptions from "../routerOptions";
+import routerOptions from "../../../helpers/routerOptions";
 
 const ProfileNav = createStackNavigator();
 

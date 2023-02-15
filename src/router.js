@@ -3,8 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
 // Navigators
-import ProfileScreenNav from "./helpers/navigators/ProfileScreenNav";
-import PostsScreenNav from "./helpers/navigators/PostsScreenNav";
+import ProfileScreenNav from "./screens/mainScreens/ProfilePostsNav/ProfileScreenNav";
+import PostsScreenNav from "./screens/mainScreens/PostsSceenNav/PostsScreenNav";
 
 // Components
 import RegistrationScreen from "./screens/auth/RegistrationScreen/RegistrationScreen";
