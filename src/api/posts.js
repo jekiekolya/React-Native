@@ -84,10 +84,21 @@ const posts = [
     title: "Post 3",
     imageUrl:
       "https://www.eea.europa.eu/themes/biodiversity/state-of-nature-in-the-eu/state-of-nature-2020-subtopic/image_print",
-    countComments: 0,
+    countComments: 1,
     countLikes: 153,
     location: "Lutsk",
-    comments: [],
+    comments: [
+      {
+        id: "1",
+        comment:
+          "Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!",
+        authorName: "Author 1",
+        authorAvatar:
+          "https://cdn.hswstatic.com/gif/play/0b7f4e9b-f59c-4024-9f06-b3dc12850ab7-1920-1080.jpg",
+        createdAt: "09 червня, 2020 | 08:40",
+        owner: false,
+      },
+    ],
   },
   {
     id: "4",

@@ -75,8 +75,6 @@ const styles = StyleSheet.create({
   },
 
   formWrapper: {
-    // flex: 1,
-
     marginTop: 33,
   },
 
@@ -122,6 +120,86 @@ const styles = StyleSheet.create({
     height: 40,
 
     borderRadius: 20,
+  },
+
+  // Camera
+  cameraWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    position: "relative",
+
+    width: "100%",
+    height: "100%",
+  },
+  cameraSnap: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    position: "absolute",
+    bottom: 0,
+    left: "50%",
+
+    width: 60,
+    height: 60,
+
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
+
+    borderRadius: 30,
+
+    transform: [{ translateX: -60 / 2 }, { translateY: -60 / 2 }],
+    zIndex: 1000,
+  },
+  newPhotoWrapper: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+
+    width: 180,
+    height: 120,
+
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    borderRadius: 8,
+
+    overflow: "hidden",
+  },
+
+  closeCameraWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+
+    position: "absolute",
+    top: 8,
+    left: 8,
+
+    padding: 8,
+
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
+
+    borderRadius: 15,
+  },
+  closeCameraText: {
+    color: "#FFFFFF",
+  },
+  NoAccessTextWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+
+    width: 300,
+    height: 100,
+
+    transform: [{ translateX: -300 / 2 }, { translateY: -100 / 2 }],
   },
 });
 

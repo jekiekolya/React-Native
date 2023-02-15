@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useKeyboard } from "../../../helpers/useKeyboard";
@@ -15,6 +16,7 @@ import BGScreen from "../../../Components/BGScreen/BGScreen";
 
 // Styles
 import styles from "./LoginScreen.Styled";
+import { Keyboard } from "react-native";
 
 const initialState = {
   email: "",
@@ -62,79 +64,87 @@ export default function LoginScreen({ setIsAuth }) {
         marginBottom: isShowKeyboard ? -heightKeyboard : 0,
       }}
     >
-      <View style={styles.container}>
-        <View
-          style={{
-            ...styles.wrapper,
-            marginBottom: isShowKeyboard ? heightKeyboard - 241 : 0,
-          }}
-        >
-          <Text style={styles.title}>Увійти</Text>
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <View
+            style={{
+              ...styles.wrapper,
+              marginBottom: isShowKeyboard ? heightKeyboard - 241 : 0,
+            }}
           >
-            <View style={styles.inputWrapper}>
-              <TextInput
-                value={formData.email}
-                onChangeText={emailHandler}
-                placeholder="Адреса електронної пошти"
-                placeholderTextColor={"#BDBDBD"}
-                style={{
-                  ...styles.input,
-                  borderColor: borderInputColorEmail,
-                }}
-                onFocus={() => {
-                  setBorderInputColorEmail("#FF6C00");
-                }}
-                onBlur={() => {
-                  setBorderInputColorEmail("#E8E8E8");
-                }}
-              />
-              <View style={[styles.inputLayout, styles.inputGap]}>
+            <Text style={styles.title}>Увійти</Text>
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
+            >
+              <View style={styles.inputWrapper}>
                 <TextInput
-                  value={formData.password}
-                  onChangeText={passwordHandler}
-                  placeholder="Пароль"
-                  secureTextEntry={showPassword}
+                  value={formData.email}
+                  onChangeText={emailHandler}
+                  placeholder="Адреса електронної пошти"
                   placeholderTextColor={"#BDBDBD"}
                   style={{
                     ...styles.input,
-                    borderColor: borderInputColorPassword,
+                    borderColor: borderInputColorEmail,
                   }}
                   onFocus={() => {
-                    setBorderInputColorPassword("#FF6C00");
+                    setBorderInputColorEmail("#FF6C00");
                   }}
                   onBlur={() => {
-                    setBorderInputColorPassword("#E8E8E8");
+                    setBorderInputColorEmail("#E8E8E8");
                   }}
                 />
-                {showPassword ? (
-                  <Text style={styles.buttonShow} onPress={handleShowPassword}>
-                    Показати
-                  </Text>
-                ) : (
-                  <Text style={styles.buttonShow} onPress={handleShowPassword}>
-                    Приховати
-                  </Text>
-                )}
+                <View style={[styles.inputLayout, styles.inputGap]}>
+                  <TextInput
+                    value={formData.password}
+                    onChangeText={passwordHandler}
+                    placeholder="Пароль"
+                    secureTextEntry={showPassword}
+                    placeholderTextColor={"#BDBDBD"}
+                    style={{
+                      ...styles.input,
+                      borderColor: borderInputColorPassword,
+                    }}
+                    onFocus={() => {
+                      setBorderInputColorPassword("#FF6C00");
+                    }}
+                    onBlur={() => {
+                      setBorderInputColorPassword("#E8E8E8");
+                    }}
+                  />
+                  {showPassword ? (
+                    <Text
+                      style={styles.buttonShow}
+                      onPress={handleShowPassword}
+                    >
+                      Показати
+                    </Text>
+                  ) : (
+                    <Text
+                      style={styles.buttonShow}
+                      onPress={handleShowPassword}
+                    >
+                      Приховати
+                    </Text>
+                  )}
+                </View>
               </View>
-            </View>
-          </KeyboardAvoidingView>
-          <TouchableOpacity
-            style={styles.buttonRegister}
-            onPress={onLogin}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.textRegister}>Увійти</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => navigation.navigate("Registration")}
-          >
-            <Text style={styles.regNav}>Немає акаунт? Зареєструватися</Text>
-          </TouchableOpacity>
+            </KeyboardAvoidingView>
+            <TouchableOpacity
+              style={styles.buttonRegister}
+              onPress={onLogin}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.textRegister}>Увійти</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate("Registration")}
+            >
+              <Text style={styles.regNav}>Немає акаунт? Зареєструватися</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </BGScreen>
   );
 }

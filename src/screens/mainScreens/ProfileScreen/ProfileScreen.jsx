@@ -59,7 +59,8 @@ export default function ProfileScreen({ setIsAuth }) {
             <View
               style={{
                 ...styles.containerFooter,
-                minHeight: posts.length === 0 ? 392 : 11,
+                minHeight:
+                  posts.length === 0 ? 392 : posts.length === 1 ? 57 : 11,
               }}
             />
           }
