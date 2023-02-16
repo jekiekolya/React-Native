@@ -12,6 +12,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useKeyboard } from "../../../helpers/useKeyboard";
 
+// Redux
+import { useDispatch } from "react-redux";
+import authOperations from "../../../redux/auth/authSelectors";
+
 // Components
 import BGScreen from "../../../Components/BGScreen/BGScreen";
 import ImageForm from "../../../Components/ImageForm/ImageForm";
@@ -38,6 +42,7 @@ export default function RegistrationScreen({ setIsAuth }) {
     useState("#E8E8E8");
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   // Height keyboard
   const heightKeyboard = useKeyboard();
@@ -63,6 +68,8 @@ export default function RegistrationScreen({ setIsAuth }) {
       email: formData.email,
       password: formData.password,
     });
+
+    dispatch(authOperations.authRegister(formData));
 
     // setFormData(initialState);
     // setIsAuth(true);
