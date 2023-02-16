@@ -1,5 +1,7 @@
 import { TouchableOpacity } from "react-native";
 
+// Redux
+
 // Icons
 import routerIcons from "../assets/images/routerIcons";
 const { SvgLogOut, SvgGrid } = routerIcons;

@@ -7,7 +7,13 @@ import {
   Platform,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
+
+// Redux
+import { useDispatch } from "react-redux";
+import authOperations from "../../../redux/auth/authOperations";
+
 import { useNavigation } from "@react-navigation/native";
 import { useKeyboard } from "../../../helpers/useKeyboard";
 
@@ -16,7 +22,6 @@ import BGScreen from "../../../Components/BGScreen/BGScreen";
 
 // Styles
 import styles from "./LoginScreen.Styled";
-import { Keyboard } from "react-native";
 
 const initialState = {
   email: "",
@@ -34,6 +39,7 @@ export default function LoginScreen({ setIsAuth }) {
     useState("#E8E8E8");
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   // Height keyboard
   const heightKeyboard = useKeyboard();
@@ -53,9 +59,10 @@ export default function LoginScreen({ setIsAuth }) {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const onLogin = () => {
-    console.log("Credentials:", `${formData.email} + ${formData.password}`);
-    setFormData(initialState);
-    setIsAuth(true);
+    dispatch(authOperations.authLogin(formData));
+
+    // setFormData(initialState);
+    // setIsAuth(true);
   };
 
   return (

@@ -2,6 +2,10 @@ import { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
+// Firebase
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/config";
+
 // Navigators
 import ProfileScreenNav from "./screens/mainScreens/ProfilePostsNav/ProfileScreenNav";
 import PostsScreenNav from "./screens/mainScreens/PostsSceenNav/PostsScreenNav";
@@ -21,6 +25,16 @@ const MainTab = createBottomTabNavigator();
 // Auth
 export const useRoute = () => {
   const [isAuth, setIsAuth] = useState(false);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // setIsAuth(true)
+      const uid = user.uid;
+      console.log(uid);
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
 
   if (!isAuth) {
     return (

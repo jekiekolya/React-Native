@@ -14,7 +14,7 @@ import { useKeyboard } from "../../../helpers/useKeyboard";
 
 // Redux
 import { useDispatch } from "react-redux";
-import authOperations from "../../../redux/auth/authSelectors";
+import authOperations from "../../../redux/auth/authOperations";
 
 // Components
 import BGScreen from "../../../Components/BGScreen/BGScreen";
@@ -63,12 +63,6 @@ export default function RegistrationScreen({ setIsAuth }) {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const onRegister = () => {
-    console.log({
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-    });
-
     dispatch(authOperations.authRegister(formData));
 
     // setFormData(initialState);
