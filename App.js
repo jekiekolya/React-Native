@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { Provider } from "react-redux";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -9,6 +10,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 // Auth
 import { useRoute } from "./src/router";
+import { store } from "./src/redux/store";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -37,9 +39,11 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>{routing}</NavigationContainer>
-    </View>
+    <Provider store={store}>
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        <NavigationContainer>{routing}</NavigationContainer>
+      </View>
+    </Provider>
   );
 }
 

@@ -58,12 +58,14 @@ export default function RegistrationScreen({ setIsAuth }) {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const onRegister = () => {
-    console.log(
-      "Credentials:",
-      `${formData.name} + ${formData.email} + ${formData.password}`
-    );
-    setFormData(initialState);
-    setIsAuth(true);
+    console.log({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    });
+
+    // setFormData(initialState);
+    // setIsAuth(true);
   };
 
   return (
