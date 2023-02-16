@@ -59,6 +59,11 @@ export default function LoginScreen({ setIsAuth }) {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const onLogin = () => {
+    if (formData.email === "" || formData.password === "") {
+      alert("Please fill all fields");
+      return;
+    }
+
     dispatch(authOperations.authLogin(formData));
 
     // setFormData(initialState);

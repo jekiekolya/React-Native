@@ -63,6 +63,15 @@ export default function RegistrationScreen({ setIsAuth }) {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const onRegister = () => {
+    if (
+      formData.email === "" ||
+      formData.password === "" ||
+      formData.name === ""
+    ) {
+      alert("Please fill all fields");
+      return;
+    }
+
     dispatch(authOperations.authRegister(formData));
 
     // setFormData(initialState);

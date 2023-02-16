@@ -4,6 +4,7 @@ import authOperations from "./authOperations";
 
 const initialState = {
   user: { userId: null, userName: null },
+  isAuth: false,
   loading: false,
   error: null,
 };
@@ -30,6 +31,7 @@ export const authSlice = createSlice({
       .addCase(authOperations.authRegister.fulfilled, (state, action) => {
         state.user.userId = action.payload.userId;
         state.user.userName = action.payload.userName;
+        state.isAuth = true;
         state.loading = false;
       })
 
@@ -39,6 +41,7 @@ export const authSlice = createSlice({
       .addCase(authOperations.authLogin.fulfilled, (state, action) => {
         state.user.userId = action.payload.userId;
         state.user.userName = action.payload.userName;
+        state.isAuth = true;
         state.loading = false;
       });
   },

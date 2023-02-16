@@ -27,8 +27,8 @@ const authRegister = createAsyncThunk(
 
       // Create payload
       const payload = {
-        userId: user.uid,
-        userName: user.displayName,
+        userId: user?.uid,
+        userName: user?.displayName,
       };
 
       return payload;
@@ -46,8 +46,8 @@ const authLogin = createAsyncThunk(
 
       // Create payload
       const payload = {
-        userId: user.user.uid,
-        userName: user.user.displayName,
+        userId: user?.user?.uid,
+        userName: user?.user?.displayName,
       };
 
       return payload;
