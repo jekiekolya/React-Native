@@ -2,9 +2,9 @@ import { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
-// Firebase
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/config";
+// Redux
+import { useSelector } from "react-redux";
+import { authSelectors } from "./redux/auth/authSelectors";
 
 // Navigators
 import ProfileScreenNav from "./screens/mainScreens/ProfilePostsNav/ProfileScreenNav";
@@ -24,26 +24,16 @@ const MainTab = createBottomTabNavigator();
 
 // Auth
 export const useRoute = () => {
-  const [isAuth, setIsAuth] = useState(false);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // setIsAuth(true)
-      const uid = user.uid;
-      console.log(uid);
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
+  const isAuth = useSelector(authSelectors.getIsAuth);
 
   if (!isAuth) {
     return (
       <AuthStack.Navigator initialRouteName="Login">
         <AuthStack.Screen name="Registration" options={{ headerShown: false }}>
-          {() => <RegistrationScreen setIsAuth={setIsAuth} />}
+          {() => <RegistrationScreen />}
         </AuthStack.Screen>
         <AuthStack.Screen name="Login" options={{ headerShown: false }}>
-          {() => <LoginScreen setIsAuth={setIsAuth} />}
+          {() => <LoginScreen />}
         </AuthStack.Screen>
       </AuthStack.Navigator>
     );
@@ -60,7 +50,7 @@ export const useRoute = () => {
           ...routerOptions.postsNavOptions(navigation),
         })}
       >
-        {() => <PostsScreenNav setIsAuth={setIsAuth} />}
+        {() => <PostsScreenNav />}
       </MainTab.Screen>
       <MainTab.Screen
         name="CreatePost"
@@ -75,7 +65,7 @@ export const useRoute = () => {
           ...routerOptions.profileOptions(navigation),
         })}
       >
-        {() => <ProfileScreenNav setIsAuth={setIsAuth} />}
+        {() => <ProfileScreenNav />}
       </MainTab.Screen>
     </MainTab.Navigator>
   );

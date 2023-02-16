@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 
 // Components
@@ -11,6 +12,8 @@ import routerOptions from "../../../routerOptions";
 const ProfileNav = createStackNavigator();
 
 const ProfileScreenNav = ({ setIsAuth }) => {
+  const dispatch = useDispatch();
+
   return (
     <ProfileNav.Navigator initialRouteName="ProfileNav">
       <ProfileNav.Screen
@@ -19,7 +22,7 @@ const ProfileScreenNav = ({ setIsAuth }) => {
           ...routerOptions.profileOptions(),
         })}
       >
-        {() => <ProfileScreen setIsAuth={setIsAuth} />}
+        {() => <ProfileScreen />}
       </ProfileNav.Screen>
       <ProfileNav.Screen
         name="CommentNav"

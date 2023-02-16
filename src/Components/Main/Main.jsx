@@ -1,8 +1,12 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+
+// Redux
+import { useDispatch } from "react-redux";
+import authOperations from "../../redux/auth/authOperations";
 
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -15,6 +19,13 @@ import styles from "./Main.Styled";
 SplashScreen.preventAutoHideAsync();
 
 export default function Main() {
+  const dispatch = useDispatch();
+
+  // Get user isAuth
+  useEffect(() => {
+    dispatch(authOperations.authStateChangeUser());
+  }, []);
+
   // Auth
   const routing = useRoute();
 

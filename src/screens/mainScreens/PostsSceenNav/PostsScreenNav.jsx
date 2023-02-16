@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 
 // Components
@@ -10,13 +11,15 @@ import routerOptions from "../../../routerOptions";
 
 const PostsNav = createStackNavigator();
 
-const PostsScreenNav = ({ setIsAuth }) => {
+const PostsScreenNav = () => {
+  const dispatch = useDispatch();
+
   return (
     <PostsNav.Navigator initialRouteName="PostsNav">
       <PostsNav.Screen
         name="PostsNav"
         options={() => ({
-          ...routerOptions.postsOptions(setIsAuth),
+          ...routerOptions.postsOptions(dispatch),
         })}
       >
         {() => <PostsScreen />}

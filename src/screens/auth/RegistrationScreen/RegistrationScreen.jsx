@@ -29,7 +29,7 @@ const initialState = {
   password: "",
 };
 
-export default function RegistrationScreen({ setIsAuth }) {
+export default function RegistrationScreen() {
   const [formData, setFormData] = useState(initialState);
 
   const [showPassword, setShowPassword] = useState(true);
@@ -75,7 +75,6 @@ export default function RegistrationScreen({ setIsAuth }) {
     dispatch(authOperations.authRegister(formData));
 
     // setFormData(initialState);
-    // setIsAuth(true);
   };
 
   return (

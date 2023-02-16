@@ -6,8 +6,12 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../../firebase/config";
+
+// Actions
+import { authAction } from "./authSlice";
 
 const authRegister = createAsyncThunk(
   "auth/register",
@@ -74,10 +78,37 @@ const authLogout = createAsyncThunk(
   }
 );
 
+const authStateChangeUser = () => async (dispatch) => {
+  try {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const payload = {
+          userId: user?.uid,
+          userName: user?.displayName,
+          isAuth: true,
+        };
+
+        dispatch(authAction(payload));
+      } else {
+        const payload = {
+          userId: null,
+          userName: null,
+          isAuth: false,
+        };
+
+        dispatch(authAction(payload));
+      }
+    });
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+};
+
 const authOperations = {
   authRegister,
   authLogin,
   authLogout,
+  authStateChangeUser,
 };
 
 export default authOperations;

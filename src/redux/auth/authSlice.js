@@ -22,7 +22,16 @@ const handleRejected = (state, action) => {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    updateUserProfile: {
+      reducer(state, { payload }) {
+        state.user.userId = payload.userId;
+        state.user.userName = payload.userName;
+        state.isAuth = payload.isAuth;
+        state.loading = false;
+      },
+    },
+  },
   extraReducers: (builder) => {
     builder
       // REGISTRATION
@@ -44,6 +53,19 @@ export const authSlice = createSlice({
         state.isAuth = true;
         state.loading = false;
       });
+
+    // // STATE CHANGE USER
+    // .addCase(authOperations.authStateChangeUser.pending, handlePending)
+    // .addCase(authOperations.authStateChangeUser.rejected, handleRejected)
+    // .addCase(
+    //   authOperations.authStateChangeUser.fulfilled,
+    //   (state, action) => {
+    //     state.user.userId = action.payload.userId;
+    //     state.user.userName = action.payload.userName;
+    //     state.isAuth = action.payload.isAuth;
+    //     state.loading = false;
+    //   }
+    // );
   },
 });
 

@@ -28,7 +28,7 @@ const initialState = {
   password: "",
 };
 
-export default function LoginScreen({ setIsAuth }) {
+export default function LoginScreen() {
   const [formData, setFormData] = useState(initialState);
   const [showPassword, setShowPassword] = useState(true);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -67,7 +67,6 @@ export default function LoginScreen({ setIsAuth }) {
     dispatch(authOperations.authLogin(formData));
 
     // setFormData(initialState);
-    // setIsAuth(true);
   };
 
   return (

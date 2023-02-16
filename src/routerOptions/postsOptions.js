@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native";
 import routerIcons from "../assets/images/routerIcons";
 const { SvgLogOut, SvgGrid } = routerIcons;
 
-const postsOptions = (setIsAuth) => {
+const postsOptions = (dispatch) => {
   return {
     // Header
     title: "Публікації",
@@ -40,7 +40,7 @@ const postsOptions = (setIsAuth) => {
           right: 16,
           bottom: 10,
         }}
-        onPress={() => setIsAuth(false)}
+        // onPress={() => dispatch()}
       >
         <SvgLogOut />
       </TouchableOpacity>
