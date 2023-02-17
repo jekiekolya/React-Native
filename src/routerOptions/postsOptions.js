@@ -1,6 +1,7 @@
 import { TouchableOpacity } from "react-native";
 
 // Redux
+import authOperations from "../redux/auth/authOperations";
 
 // Icons
 import routerIcons from "../assets/images/routerIcons";
@@ -40,7 +41,7 @@ const postsOptions = (dispatch) => {
           right: 16,
           bottom: 10,
         }}
-        // onPress={() => dispatch()}
+        onPress={() => dispatch(authOperations.authLogout())}
       >
         <SvgLogOut />
       </TouchableOpacity>
