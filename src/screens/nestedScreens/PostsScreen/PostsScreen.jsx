@@ -27,7 +27,6 @@ export default function PostsScreen() {
   useEffect(() => {
     if (route?.params?.newPost) {
       const newPost = route.params.newPost;
-      console.log("newPost", newPost);
       posts.unshift(newPost);
     }
   }, [route?.params?.newPost]);
@@ -95,7 +94,6 @@ export default function PostsScreen() {
                   navigation.navigate("MapNav", {
                     location: item.location,
                     locationData: item.locationData,
-
                   })
                 }
                 activeOpacity={0.8}

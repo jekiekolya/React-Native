@@ -23,6 +23,7 @@ import ArrowLeftIcon from "../../../assets/images/screenIcons/ArrowLeftIcon";
 
 // helpers
 import createPost from "../../../helpers/createPost";
+import uploadPhotoToServer from "../../../helpers/uploadPhotoToServer";
 
 // Styles
 import styles from "./CreatePostsScreen.Styled";
@@ -134,8 +135,9 @@ export default function CreatePostsScreen() {
     setIsReadyCreate(false);
   };
 
-  const onCreatePost = () => {
-    const newPost = createPost({ ...post, imageUrl: image });
+  const onCreatePost = async () => {
+    const imageUrl = await uploadPhotoToServer(image);
+    const newPost = createPost({ ...post, imageUrl });
     navigation.navigate("PostsNav", {
       newPost: newPost,
     });
