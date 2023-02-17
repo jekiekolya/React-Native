@@ -1,5 +1,3 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-
 // Firebase
 import {
   createUserWithEmailAndPassword,
@@ -13,9 +11,10 @@ import { auth } from "../../firebase/config";
 // Actions
 import { authAction } from "./authSlice";
 
-const authRegister = createAsyncThunk(
-  "auth/register",
-  async ({ name, email, password }, { rejectWithValue }) => {
+// REGISTRATION
+const authRegister =
+  ({ name, email, password }) =>
+  async (dispatch, getState) => {
     try {
       // Create user
       await createUserWithEmailAndPassword(auth, email, password);
@@ -35,16 +34,16 @@ const authRegister = createAsyncThunk(
         userName: user?.displayName,
       };
 
-      return payload;
+      dispatch(authAction.updateUserProfile(payload));
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.log("error.message", error.message);
     }
-  }
-);
+  };
 
-const authLogin = createAsyncThunk(
-  "auth/login",
-  async ({ email, password }, { rejectWithValue }) => {
+// LOGIN
+const authLogin =
+  ({ email, password }) =>
+  async (dispatch, getState) => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
 
@@ -54,30 +53,24 @@ const authLogin = createAsyncThunk(
         userName: user?.user?.displayName,
       };
 
-      return payload;
+      dispatch(authAction.updateUserProfile(payload));
     } catch (error) {
       console.log("error.message", error.message);
-      // return rejectWithValue(error.message);
     }
+  };
+
+// LOGOUT
+const authLogout = () => async (dispatch, getState) => {
+  try {
+    await signOut(auth);
+
+    dispatch(authAction.authStateChange(false));
+  } catch (error) {
+    console.log("error.message", error.message);
   }
-);
+};
 
-// const authLogout = () => async (dispatch, getState) => {};
-
-const authLogout = createAsyncThunk(
-  "auth/logout",
-  async (_, { rejectWithValue }) => {
-    try {
-      const res = await signOut(auth);
-
-      console.log(res);
-    } catch (error) {
-      console.log("error.message", error.message);
-      // return rejectWithValue(error.message);
-    }
-  }
-);
-
+// CHANGE USER AUTH STATE
 const authStateChangeUser = () => async (dispatch) => {
   try {
     onAuthStateChanged(auth, (user) => {
@@ -85,22 +78,22 @@ const authStateChangeUser = () => async (dispatch) => {
         const payload = {
           userId: user?.uid,
           userName: user?.displayName,
-          isAuth: true,
         };
 
-        dispatch(authAction(payload));
+        dispatch(authAction.updateUserProfile(payload));
+        dispatch(authAction.authStateChange(true));
       } else {
         const payload = {
           userId: null,
           userName: null,
-          isAuth: false,
         };
 
-        dispatch(authAction(payload));
+        dispatch(authAction.updateUserProfile(payload));
+        dispatch(authAction.authStateChange(false));
       }
     });
   } catch (error) {
-    return rejectWithValue(error.message);
+    console.log("error.message", error.message);
   }
 };
 

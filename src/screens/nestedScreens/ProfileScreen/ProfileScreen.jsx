@@ -6,6 +6,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+// Redux
+import { useDispatch } from "react-redux";
+import authOperations from "../../../redux/auth/authOperations";
+
+// Navigation
 import { useNavigation } from "@react-navigation/native";
 
 // Components
@@ -25,11 +30,11 @@ import styles from "./ProfileScreen.Style";
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   // handlers
   const logOut = () => {
-    // dispatch();
-    // setIsAuth(false);
+    dispatch(authOperations.authLogout());
   };
   return (
     <BGScreen style={{ marginBottom: -83 }}>
