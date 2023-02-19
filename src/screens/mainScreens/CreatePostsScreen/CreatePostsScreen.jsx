@@ -14,7 +14,7 @@ import { Camera } from "expo-camera";
 import * as Location from "expo-location";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authSelectors } from "../../../redux/auth/authSelectors";
 
 // Components
@@ -27,11 +27,11 @@ import ArrowLeftIcon from "../../../assets/images/screenIcons/ArrowLeftIcon";
 import { useKeyboard } from "../../../helpers/useKeyboard";
 
 // API
-import uploadPostToServer from "../../../api/uploadPostToServer";
 import uploadPhotoToServer from "../../../api/uploadPhotoToServer";
 
 // Styles
 import styles from "./CreatePostsScreen.Styled";
+import postsOperations from "../../../redux/posts/postsOperations";
 
 const initialState = {
   title: "",
@@ -62,6 +62,7 @@ export default function CreatePostsScreen() {
 
   // Navigation
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   // User data
   const user = useSelector(authSelectors.getUser);
@@ -145,11 +146,13 @@ export default function CreatePostsScreen() {
 
   const onCreatePost = async () => {
     const imageUrl = await uploadPhotoToServer(image);
-    await uploadPostToServer({
-      ...post,
-      imageUrl,
-      userId: user?.userId,
-    });
+    dispatch(
+      postsOperations.addPost({
+        ...post,
+        imageUrl,
+        userId: user?.userId,
+      })
+    );
 
     navigation.navigate("PostsNav");
     // onResetForm();

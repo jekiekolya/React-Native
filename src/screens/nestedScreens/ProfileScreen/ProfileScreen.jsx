@@ -99,20 +99,20 @@ export default function ProfileScreen() {
                     <TouchableOpacity
                       onPress={() =>
                         navigation.navigate("CommentNav", {
-                          comments: item.comments,
+                          postId: item.id,
                           postImageUrl: item.imageUrl,
                         })
                       }
                       activeOpacity={0.8}
                     >
-                      {item.comments.length === 0 ? (
+                      {!item.comments ? (
                         <CommentsEmptyIcon style={{ marginRight: 6 }} />
                       ) : (
                         <CommentsIcon style={{ marginRight: 6 }} />
                       )}
                     </TouchableOpacity>
 
-                    <Text style={styles.textPost}>{item.comments.length}</Text>
+                    <Text style={styles.textPost}>{item.comments?.length}</Text>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <LikeIcon style={{ marginRight: 6 }} />

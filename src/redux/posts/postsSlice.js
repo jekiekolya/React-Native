@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   posts: [],
+  comments: [],
 };
 
 export const postsSlice = createSlice({
@@ -11,6 +12,10 @@ export const postsSlice = createSlice({
     updatePosts: (state, { payload }) => ({
       ...state,
       posts: payload,
+    }),
+    updateCommentsToPost: (state, { payload }) => ({
+      ...state,
+      comments: payload,
     }),
   },
 });

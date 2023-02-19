@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FlatList,
   Image,
@@ -9,6 +9,12 @@ import {
   View,
 } from "react-native";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import postsOperations from "../../../redux/posts/postsOperations";
+import { authSelectors } from "../../../redux/auth/authSelectors";
+import { postsSelectors } from "../../../redux/posts/postsSelectors";
+
 // Components
 import ArrowUpIcon from "../../../assets/images/screenIcons/ArrowUpIcon";
 
@@ -16,10 +22,19 @@ import ArrowUpIcon from "../../../assets/images/screenIcons/ArrowUpIcon";
 import styles from "./CommentsScreen.Styled";
 
 export default function CommentsScreen({ route }) {
+  const dispatch = useDispatch();
+
   const [comment, setComment] = useState("");
 
-  const comments = route.params.comments;
+  const postId = route.params.postId;
   const postImageUrl = route.params.postImageUrl;
+
+  const { userId } = useSelector(authSelectors.getUser);
+  const comments = useSelector(postsSelectors.getComments);
+
+  useEffect(() => {
+    dispatch(postsOperations.getAllCommentsByPostId(postId));
+  }, [dispatch, postsOperations]);
 
   // Handlers
   const commentHandler = (text) => {
@@ -27,13 +42,13 @@ export default function CommentsScreen({ route }) {
   };
 
   const onAddComment = () => {
-    console.log(comment);
-    setComment("");
+    dispatch(postsOperations.addCommentByPostID(postId, comment));
+    // setComment("");
   };
   return (
     <SafeAreaView style={{ height: "100%" }}>
       <FlatList
-        data={comments}
+        data={comments ?? []}
         style={{ backgroundColor: "#FFFFFF" }}
         ListHeaderComponent={
           <View style={styles.containerHeader}>
@@ -45,29 +60,29 @@ export default function CommentsScreen({ route }) {
           <View
             style={{
               ...styles.containerItem,
-              flexDirection: item.owner ? "row-reverse" : "row",
+              flexDirection: item.authorId === userId ? "row-reverse" : "row",
             }}
           >
             <Image
               source={{ uri: item.authorAvatar }}
               style={{
                 ...styles.authorAvatar,
-                marginRight: item.owner ? 0 : 16,
-                marginLeft: !item.owner ? 0 : 16,
+                marginRight: item.authorId === userId ? 0 : 16,
+                marginLeft: !item.authorId === userId ? 0 : 16,
               }}
             />
             <View
               style={{
                 ...styles.commentWrapper,
-                borderTopRightRadius: item.owner ? 0 : 16,
-                borderTopLeftRadius: !item.owner ? 0 : 16,
+                borderTopRightRadius: item.authorId === userId ? 0 : 16,
+                borderTopLeftRadius: !item.authorId === userId ? 0 : 16,
               }}
             >
               <Text style={styles.commentAuthor}>{item.comment}</Text>
               <Text
                 style={{
                   ...styles.commentDate,
-                  textAlign: item.owner ? "left" : "right",
+                  textAlign: item.authorId === userId ? "left" : "right",
                 }}
               >
                 {item.createdAt}
