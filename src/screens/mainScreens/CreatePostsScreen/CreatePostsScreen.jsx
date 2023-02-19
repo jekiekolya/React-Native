@@ -13,7 +13,9 @@ import * as MediaLibrary from "expo-media-library";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
 
-import { useKeyboard } from "../../../helpers/useKeyboard";
+// Redux
+import { useSelector } from "react-redux";
+import { authSelectors } from "../../../redux/auth/authSelectors";
 
 // Components
 import CameraIcon from "../../../assets/images/screenIcons/CameraIcon";
@@ -22,7 +24,8 @@ import TrashIcon from "../../../assets/images/screenIcons/TrashIcon";
 import ArrowLeftIcon from "../../../assets/images/screenIcons/ArrowLeftIcon";
 
 // helpers
-import createPost from "../../../helpers/createPost";
+import { useKeyboard } from "../../../helpers/useKeyboard";
+import uploadPostToServer from "../../../helpers/uploadPostToServer";
 import uploadPhotoToServer from "../../../helpers/uploadPhotoToServer";
 
 // Styles
@@ -57,6 +60,9 @@ export default function CreatePostsScreen() {
 
   // Navigation
   const navigation = useNavigation();
+
+  // User data
+  const user = useSelector(authSelectors.getUser);
 
   // Height keyboard
   const heightKeyboard = useKeyboard();
@@ -137,7 +143,13 @@ export default function CreatePostsScreen() {
 
   const onCreatePost = async () => {
     const imageUrl = await uploadPhotoToServer(image);
-    const newPost = createPost({ ...post, imageUrl });
+    const newPost = await uploadPostToServer({
+      ...post,
+      imageUrl,
+      userId: user?.userId,
+    });
+
+    console.log("newPost", newPost);
     navigation.navigate("PostsNav", {
       newPost: newPost,
     });
