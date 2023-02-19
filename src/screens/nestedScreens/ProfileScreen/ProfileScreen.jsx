@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   FlatList,
   Image,
@@ -6,9 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import authOperations from "../../../redux/auth/authOperations";
+import postsOperations from "../../../redux/posts/postsOperations";
+import { authSelectors } from "../../../redux/auth/authSelectors";
+import { postsSelectors } from "../../../redux/posts/postsSelectors";
 
 // Navigation
 import { useNavigation } from "@react-navigation/native";
@@ -22,15 +27,20 @@ import LikeIcon from "../../../assets/images/screenIcons/LikeIcon";
 import LocationIcon from "../../../assets/images/screenIcons/LocationIcon";
 import CommentsEmptyIcon from "../../../assets/images/screenIcons/CommentsEmptyIcon";
 
-// Data
-import posts from "../../../api/posts";
-
 // Styles
 import styles from "./ProfileScreen.Style";
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const { userName, userId } = useSelector(authSelectors.getUser);
+  const posts = useSelector(postsSelectors.getPosts);
+  const ownPosts = posts.filter((post) => post.userId === userId);
+
+  useEffect(() => {
+    dispatch(postsOperations.getAllPosts());
+  }, [dispatch, postsOperations]);
 
   // handlers
   const logOut = () => {
@@ -46,7 +56,7 @@ export default function ProfileScreen() {
         }}
       >
         <FlatList
-          data={posts}
+          data={ownPosts}
           ListHeaderComponent={
             <View style={styles.containerHeader}>
               <ImageForm />
@@ -58,7 +68,7 @@ export default function ProfileScreen() {
                 <LogOut />
               </TouchableOpacity>
 
-              <Text style={styles.userName}>Natali Romanova</Text>
+              <Text style={styles.userName}>{userName}</Text>
             </View>
           }
           ListFooterComponent={

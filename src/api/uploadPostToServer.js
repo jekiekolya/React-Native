@@ -1,5 +1,5 @@
 // Firebase
-import { getDoc, addDoc, collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase/config";
 
 export default async function uploadPostToServer(postData) {
@@ -16,15 +16,10 @@ export default async function uploadPostToServer(postData) {
     };
 
     // Add post to firestore
-    const docRef = await addDoc(collection(db, "posts"), {
+    await addDoc(collection(db, "posts"), {
       ...post,
     });
-    const docSnap = await getDoc(docRef);
-
-    return { ...docSnap?.data(), id: docRef.id };
   } catch (e) {
-    console.error("Error adding document: ", e);
+    console.log(e.message);
   }
-
-  return;
 }

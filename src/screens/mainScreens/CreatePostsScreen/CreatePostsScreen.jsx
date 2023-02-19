@@ -25,8 +25,10 @@ import ArrowLeftIcon from "../../../assets/images/screenIcons/ArrowLeftIcon";
 
 // helpers
 import { useKeyboard } from "../../../helpers/useKeyboard";
-import uploadPostToServer from "../../../helpers/uploadPostToServer";
-import uploadPhotoToServer from "../../../helpers/uploadPhotoToServer";
+
+// API
+import uploadPostToServer from "../../../api/uploadPostToServer";
+import uploadPhotoToServer from "../../../api/uploadPhotoToServer";
 
 // Styles
 import styles from "./CreatePostsScreen.Styled";
@@ -143,17 +145,14 @@ export default function CreatePostsScreen() {
 
   const onCreatePost = async () => {
     const imageUrl = await uploadPhotoToServer(image);
-    const newPost = await uploadPostToServer({
+    await uploadPostToServer({
       ...post,
       imageUrl,
       userId: user?.userId,
     });
 
-    console.log("newPost", newPost);
-    navigation.navigate("PostsNav", {
-      newPost: newPost,
-    });
-    onResetForm();
+    navigation.navigate("PostsNav");
+    // onResetForm();
   };
 
   return (

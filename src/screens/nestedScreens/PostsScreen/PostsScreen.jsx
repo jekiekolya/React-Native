@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import {
   FlatList,
   Image,
@@ -9,8 +9,14 @@ import {
   View,
 } from "react-native";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { authSelectors } from "../../../redux/auth/authSelectors";
+import postsOperations from "../../../redux/posts/postsOperations";
+import { postsSelectors } from "../../../redux/posts/postsSelectors";
+
 // Data
-import posts from "../../../api/posts";
+// import posts from "../../../api/posts";
 
 // Components
 import CommentsEmptyIcon from "../../../assets/images/screenIcons/CommentsEmptyIcon";
@@ -22,20 +28,21 @@ import LocationIcon from "../../../assets/images/screenIcons/LocationIcon";
 import styles from "./PostsScreen.Styled";
 
 export default function PostsScreen() {
+  const dispatch = useDispatch();
+  const { userName, userId } = useSelector(authSelectors.getUser);
+  const posts = useSelector(postsSelectors.getPosts);
+
   const navigation = useNavigation();
-  const route = useRoute();
+
   useEffect(() => {
-    if (route?.params?.newPost) {
-      const newPost = route.params.newPost;
-      posts.unshift(newPost);
-    }
-  }, [route?.params?.newPost]);
+    dispatch(postsOperations.getAllPosts());
+  }, [dispatch, postsOperations]);
 
   return (
     <SafeAreaView style={{ height: "100%" }}>
       <FlatList
         style={{ backgroundColor: "#FFFFFF" }}
-        data={posts}
+        data={posts ?? []}
         ListHeaderComponent={
           <View style={styles.containerHeader}>
             <Image
@@ -43,7 +50,7 @@ export default function PostsScreen() {
               style={styles.userPhoto}
             />
             <View>
-              <Text style={styles.userName}>Natali Romanova</Text>
+              <Text style={styles.userName}>{userName}</Text>
               <Text style={styles.userEmail}>email@example.com</Text>
             </View>
           </View>
