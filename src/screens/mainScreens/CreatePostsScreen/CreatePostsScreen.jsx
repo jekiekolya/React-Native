@@ -172,7 +172,7 @@ export default function CreatePostsScreen() {
     );
 
     navigation.navigate("PostsNav");
-    // onResetForm();
+    onResetForm();
   };
 
   return (
