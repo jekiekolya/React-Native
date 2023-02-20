@@ -82,14 +82,14 @@ export default function PostsScreen() {
                     }
                     activeOpacity={0.8}
                   >
-                    {!item.comments ? (
+                    {item.countComments === 0 ? (
                       <CommentsEmptyIcon style={{ marginRight: 6 }} />
                     ) : (
                       <CommentsIcon style={{ marginRight: 6 }} />
                     )}
                   </TouchableOpacity>
 
-                  <Text style={styles.textPost}>{item.comments?.length}</Text>
+                  <Text style={styles.textPost}>{item.countComments || 0}</Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <LikeIcon style={{ marginRight: 6 }} />

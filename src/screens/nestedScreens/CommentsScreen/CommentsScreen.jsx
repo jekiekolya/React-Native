@@ -34,6 +34,11 @@ export default function CommentsScreen({ route }) {
 
   useEffect(() => {
     dispatch(postsOperations.getAllCommentsByPostId(postId));
+
+    return () => {
+      dispatch(postsOperations.getAllPosts());
+      dispatch(postsOperations.getOwnPosts());
+    };
   }, [dispatch, postsOperations]);
 
   // Handlers
@@ -43,7 +48,7 @@ export default function CommentsScreen({ route }) {
 
   const onAddComment = () => {
     dispatch(postsOperations.addCommentByPostID(postId, comment));
-    // setComment("");
+    setComment("");
   };
   return (
     <SafeAreaView style={{ height: "100%" }}>

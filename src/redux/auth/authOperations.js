@@ -53,12 +53,12 @@ const authLogin =
   ({ email, password }) =>
   async (dispatch, getState) => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      console.log("user", user);
       // Create payload
       const payload = {
-        userId: user?.user?.uid,
-        userName: user?.user?.displayName,
+        userId: user?.uid,
+        userName: user?.displayName,
         userAvatar: user?.photoURL,
         userEmail: user?.email,
       };

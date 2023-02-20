@@ -6,6 +6,7 @@ import {
   doc,
   query,
   where,
+  getCountFromServer,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
@@ -17,9 +18,27 @@ const getAllPosts = () => async (dispatch, getState) => {
   try {
     // get all posts
     const posts = await getDocs(collection(db, "posts"));
+    // console.log("posts", posts.docs[0].ref);
+    // const comments = await getDocs(collection(posts.docs[0].ref, "comments"));
+    // console.log(
+    //   "comments",
+    //   comments.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    // );
 
-    // add id to collection
-    const payload = posts.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    // add id to collection and count comments
+    const newPosts = posts.docs.map(async (doc) => {
+      const snapshotComments = await getCountFromServer(
+        collection(doc.ref, "comments")
+      );
+
+      const countComments = snapshotComments.data().count;
+
+      return { ...doc.data(), id: doc.id, countComments };
+    });
+
+    // Resolve all promises
+    const payload = await Promise.all(newPosts);
+
     dispatch(postsAction.updatePosts(payload));
   } catch (error) {
     console.log("error.message", error.message);
@@ -34,8 +53,19 @@ const getOwnPosts = () => async (dispatch, getState) => {
     const q = query(collection(db, "posts"), where("userId", "==", userId));
     const posts = await getDocs(q);
 
-    // add id to collection
-    const payload = posts.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    // add id to collection and count comments
+    const newPosts = posts.docs.map(async (doc) => {
+      const snapshotComments = await getCountFromServer(
+        collection(doc.ref, "comments")
+      );
+
+      const countComments = snapshotComments.data().count;
+
+      return { ...doc.data(), id: doc.id, countComments };
+    });
+
+    // Resolve all promises
+    const payload = await Promise.all(newPosts);
 
     dispatch(postsAction.updateOwnPosts(payload));
   } catch (error) {
