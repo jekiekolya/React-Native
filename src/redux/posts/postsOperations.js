@@ -4,8 +4,8 @@ import {
   getDocs,
   addDoc,
   doc,
-  setDoc,
-  getDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
@@ -21,6 +21,23 @@ const getAllPosts = () => async (dispatch, getState) => {
     // add id to collection
     const payload = posts.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     dispatch(postsAction.updatePosts(payload));
+  } catch (error) {
+    console.log("error.message", error.message);
+  }
+};
+
+const getOwnPosts = () => async (dispatch, getState) => {
+  try {
+    // Get data from state
+    const { userId } = getState().auth.user;
+    // get own posts
+    const q = query(collection(db, "posts"), where("userId", "==", userId));
+    const posts = await getDocs(q);
+
+    // add id to collection
+    const payload = posts.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+    dispatch(postsAction.updateOwnPosts(payload));
   } catch (error) {
     console.log("error.message", error.message);
   }
@@ -102,6 +119,7 @@ const addCommentByPostID =
 
 const postsOperations = {
   getAllPosts,
+  getOwnPosts,
   addPost,
   getAllCommentsByPostId,
   addCommentByPostID,

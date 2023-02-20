@@ -37,11 +37,10 @@ export default function ProfileScreen() {
 
   const [image, setImage] = useState(userAvatar);
 
-  const posts = useSelector(postsSelectors.getPosts);
-  const ownPosts = posts.filter((post) => post.userId === userId);
+  const ownPosts = useSelector(postsSelectors.getOwnPosts);
 
   useEffect(() => {
-    dispatch(postsOperations.getAllPosts());
+    dispatch(postsOperations.getOwnPosts());
   }, [dispatch, postsOperations]);
 
   // handlers
