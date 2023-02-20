@@ -9,8 +9,7 @@ import CrossIcon from "../../assets/images/screenIcons/CrossIcon";
 // Styles
 import styles from "./ImageForm.styled";
 
-export default function ImageForm() {
-  const [image, setImage] = useState(null);
+export default function ImageForm({ image, setImage }) {
   const addImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,

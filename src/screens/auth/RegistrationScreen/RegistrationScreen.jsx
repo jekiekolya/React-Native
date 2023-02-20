@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useKeyboard } from "../../../helpers/useKeyboard";
+import uploadPhotoToServer from "../../../api/uploadPhotoToServer";
 
 // Redux
 import { useDispatch } from "react-redux";
@@ -31,6 +32,7 @@ const initialState = {
 
 export default function RegistrationScreen() {
   const [formData, setFormData] = useState(initialState);
+  const [image, setImage] = useState(null);
 
   const [showPassword, setShowPassword] = useState(true);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -62,7 +64,7 @@ export default function RegistrationScreen() {
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
-  const onRegister = () => {
+  const onRegister = async () => {
     if (
       formData.email === "" ||
       formData.password === "" ||
@@ -72,7 +74,12 @@ export default function RegistrationScreen() {
       return;
     }
 
-    dispatch(authOperations.authRegister(formData));
+    if (image === null) {
+      alert("Please pick an image");
+      return;
+    }
+
+    dispatch(authOperations.authRegister({ ...formData, image }));
 
     // setFormData(initialState);
   };
@@ -91,7 +98,7 @@ export default function RegistrationScreen() {
               marginBottom: isShowKeyboard ? heightKeyboard - 175 : 0,
             }}
           >
-            <ImageForm />
+            <ImageForm image={image} setImage={setImage} />
             <Text style={styles.title}>Реєстрація</Text>
             <KeyboardAvoidingView
               behavior={Platform.OS == "ios" ? "padding" : "height"}

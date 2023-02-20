@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -33,8 +33,10 @@ import styles from "./ProfileScreen.Style";
 export default function ProfileScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { userName, userId, userAvatar } = useSelector(authSelectors.getUser);
 
-  const { userName, userId } = useSelector(authSelectors.getUser);
+  const [image, setImage] = useState(userAvatar);
+
   const posts = useSelector(postsSelectors.getPosts);
   const ownPosts = posts.filter((post) => post.userId === userId);
 
@@ -59,7 +61,7 @@ export default function ProfileScreen() {
           data={ownPosts}
           ListHeaderComponent={
             <View style={styles.containerHeader}>
-              <ImageForm />
+              <ImageForm image={image} setImage={setImage} />
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles.logOutIcon}

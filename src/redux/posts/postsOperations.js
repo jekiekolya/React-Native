@@ -75,13 +75,14 @@ const addCommentByPostID =
   (postId, commentData) => async (dispatch, getState) => {
     try {
       // Get data from state
-      const { userName, userId } = getState().auth.user;
+      const { userName, userId, userAvatar } = getState().auth.user;
 
       // Create comment
       const comment = {
         comment: commentData,
         authorName: userName,
         authorId: userId,
+        authorAvatar: userAvatar,
         date: Date.now(),
         postId: postId,
       };

@@ -29,7 +29,10 @@ import styles from "./PostsScreen.Styled";
 
 export default function PostsScreen() {
   const dispatch = useDispatch();
-  const { userName, userId } = useSelector(authSelectors.getUser);
+  const { userName, userId, userAvatar, userEmail } = useSelector(
+    authSelectors.getUser
+  );
+
   const posts = useSelector(postsSelectors.getPosts);
 
   const navigation = useNavigation();
@@ -45,13 +48,10 @@ export default function PostsScreen() {
         data={posts ?? []}
         ListHeaderComponent={
           <View style={styles.containerHeader}>
-            <Image
-              source={{ uri: "https://i.stack.imgur.com/5Powi.jpg?s=192&g=1" }}
-              style={styles.userPhoto}
-            />
+            <Image source={{ uri: userAvatar }} style={styles.userPhoto} />
             <View>
               <Text style={styles.userName}>{userName}</Text>
-              <Text style={styles.userEmail}>email@example.com</Text>
+              <Text style={styles.userEmail}>{userEmail}</Text>
             </View>
           </View>
         }
