@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import authOperations from "../../../redux/auth/authOperations";
 import postsOperations from "../../../redux/posts/postsOperations";
+import userOperations from "../../../redux/user/userOperation";
 import { authSelectors } from "../../../redux/auth/authSelectors";
 import { postsSelectors } from "../../../redux/posts/postsSelectors";
 
@@ -39,9 +40,17 @@ export default function ProfileScreen() {
 
   const ownPosts = useSelector(postsSelectors.getOwnPosts);
 
+  // Get posts
   useEffect(() => {
     dispatch(postsOperations.getOwnPosts());
   }, [dispatch, postsOperations]);
+
+  // Update avatar
+  useEffect(() => {
+    if (image !== userAvatar && image !== null) {
+      dispatch(userOperations.updateUserAvatar(image));
+    }
+  }, [dispatch, userOperations, image]);
 
   // handlers
   const logOut = () => {
