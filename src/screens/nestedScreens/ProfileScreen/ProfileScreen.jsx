@@ -35,7 +35,7 @@ import styles from "./ProfileScreen.Style";
 export default function ProfileScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { userName, userId, userAvatar } = useSelector(authSelectors.getUser);
+  const { userName, userAvatar } = useSelector(authSelectors.getUser);
 
   const [image, setImage] = useState(userAvatar);
 

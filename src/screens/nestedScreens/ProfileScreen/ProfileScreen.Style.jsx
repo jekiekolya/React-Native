@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     width: "100%",
 
     marginTop: 147,
+    marginBottom: -1,
     paddingTop: 92,
     paddingHorizontal: 16,
 
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
   listItem: {
     width: "100%",
     paddingHorizontal: 16,
+    marginBottom: -1,
 
     backgroundColor: "#FFFFFF",
   },
