@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -40,6 +41,15 @@ export default function PostsScreen() {
   useEffect(() => {
     dispatch(postsOperations.getAllPosts());
   }, [dispatch, postsOperations]);
+
+  // handlers
+  const addLike = (postId) => {
+    dispatch(postsOperations.addLikeByPostID(postId));
+  };
+
+  const deleteLike = (postId) => {
+    dispatch(postsOperations.deleteLikeByPostID(postId));
+  };
 
   return (
     <SafeAreaView style={{ height: "100%" }}>
@@ -92,7 +102,20 @@ export default function PostsScreen() {
                   <Text style={styles.textPost}>{item.countComments || 0}</Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <LikeIcon style={{ marginRight: 6 }} />
+                  {item.isLiked ? (
+                    <AntDesign
+                      name="like1"
+                      size={20}
+                      color="#FF6C00"
+                      style={{ marginRight: 6, marginBottom: 4 }}
+                      onPress={() => deleteLike(item.id)}
+                    />
+                  ) : (
+                    <LikeIcon
+                      style={{ marginRight: 6 }}
+                      onPress={() => addLike(item.id)}
+                    />
+                  )}
                   <Text style={styles.textPost}>{item.countLikes}</Text>
                 </View>
               </View>

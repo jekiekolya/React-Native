@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -55,6 +56,14 @@ export default function ProfileScreen() {
   // handlers
   const logOut = () => {
     dispatch(authOperations.authLogout());
+  };
+
+  const addLike = (postId) => {
+    dispatch(postsOperations.addLikeByPostID(postId));
+  };
+
+  const deleteLike = (postId) => {
+    dispatch(postsOperations.deleteLikeByPostID(postId));
   };
   return (
     <BGScreen style={{ marginBottom: -83 }}>
@@ -127,7 +136,20 @@ export default function ProfileScreen() {
                     </Text>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <LikeIcon style={{ marginRight: 6 }} />
+                    {item.isLiked ? (
+                      <AntDesign
+                        name="like1"
+                        size={20}
+                        color="#FF6C00"
+                        style={{ marginRight: 6, marginBottom: 4 }}
+                        onPress={() => deleteLike(item.id)}
+                      />
+                    ) : (
+                      <LikeIcon
+                        style={{ marginRight: 6 }}
+                        onPress={() => addLike(item.id)}
+                      />
+                    )}
                     <Text style={styles.textPost}>{item.countLikes}</Text>
                   </View>
                 </View>

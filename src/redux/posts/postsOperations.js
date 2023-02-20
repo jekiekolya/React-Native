@@ -7,6 +7,7 @@ import {
   query,
   where,
   getCountFromServer,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
@@ -19,24 +20,40 @@ import getFormatDataForComment from "../../helpers/getFormatDataForComment";
 // GET ALL POSTS
 const getAllPosts = () => async (dispatch, getState) => {
   try {
+    // Get data from state
+    const { userId } = getState().auth.user;
+
     // get all posts
     const posts = await getDocs(collection(db, "posts"));
-    // console.log("posts", posts.docs[0].ref);
-    // const comments = await getDocs(collection(posts.docs[0].ref, "comments"));
-    // console.log(
-    //   "comments",
-    //   comments.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    // );
 
     // add id to collection and count comments
     const newPosts = posts.docs.map(async (doc) => {
+      // Get comments count
       const snapshotComments = await getCountFromServer(
         collection(doc.ref, "comments")
       );
-
       const countComments = snapshotComments.data().count;
 
-      return { ...doc.data(), id: doc.id, countComments };
+      // Get likes count
+      const snapshotLikes = await getCountFromServer(
+        collection(doc.ref, "likes")
+      );
+      const countLikes = snapshotLikes.data().count;
+
+      // Post is Liked
+      const q = query(
+        collection(doc.ref, "likes"),
+        where("authorId", "==", userId)
+      );
+      const likes = await getDocs(q);
+
+      return {
+        ...doc.data(),
+        id: doc.id,
+        countComments,
+        countLikes,
+        isLiked: !likes.empty,
+      };
     });
 
     // Resolve all promises
@@ -58,13 +75,32 @@ const getOwnPosts = () => async (dispatch, getState) => {
 
     // add id to collection and count comments
     const newPosts = posts.docs.map(async (doc) => {
+      // Get comments count
       const snapshotComments = await getCountFromServer(
         collection(doc.ref, "comments")
       );
-
       const countComments = snapshotComments.data().count;
 
-      return { ...doc.data(), id: doc.id, countComments };
+      // Get likes count
+      const snapshotLikes = await getCountFromServer(
+        collection(doc.ref, "likes")
+      );
+      const countLikes = snapshotLikes.data().count;
+
+      // Post is Liked
+      const q = query(
+        collection(doc.ref, "likes"),
+        where("authorId", "==", userId)
+      );
+      const likes = await getDocs(q);
+
+      return {
+        ...doc.data(),
+        id: doc.id,
+        countComments,
+        countLikes,
+        isLiked: !likes.empty,
+      };
     });
 
     // Resolve all promises
@@ -84,7 +120,6 @@ const addPost = (postData) => async (dispatch, getState) => {
       title: "PostTitle",
       imageUrl:
         "https://img.itinari.com/countries/ua-ukraine.jpg?ch=DPR&dpr=2.625&w=1600&s=76b48d9430a1bdc555274df0fa944579",
-      countLikes: 0,
       location: "Ukraine",
       ...postData,
     };
@@ -154,12 +189,68 @@ const addCommentByPostID =
     }
   };
 
+// ADD LIKE TO POST
+const addLikeByPostID = (postId) => async (dispatch, getState) => {
+  try {
+    // Get data from state
+    const { userId } = getState().auth.user;
+
+    // Create like
+    const like = {
+      like: true,
+      authorId: userId,
+      postId: postId,
+    };
+
+    // Get ref to post by postId
+    const docRef = doc(db, "posts", postId);
+
+    // Add like to collection
+    await addDoc(collection(docRef, "likes"), { ...like });
+
+    // Update posts state
+    dispatch(getAllPosts());
+    dispatch(getOwnPosts());
+  } catch (error) {
+    console.log("error.message", error.message);
+  }
+};
+
+// DELETE LIKE FROM POST
+const deleteLikeByPostID = (postId) => async (dispatch, getState) => {
+  try {
+    // Get data from state
+    const { userId } = getState().auth.user;
+
+    // Get ref to post by postId
+    const docRef = doc(db, "posts", postId);
+
+    // Post is Liked
+    const q = query(
+      collection(docRef, "likes"),
+      where("authorId", "==", userId)
+    );
+    const likes = await getDocs(q);
+
+    // Delete like from collection
+    await deleteDoc(likes.docs[0].ref);
+
+    // Update posts state
+    dispatch(getAllPosts());
+    dispatch(getOwnPosts());
+  } catch (error) {
+    console.log("error.message", error.message);
+  }
+};
+
 const postsOperations = {
   getAllPosts,
   getOwnPosts,
   addPost,
   getAllCommentsByPostId,
   addCommentByPostID,
+  addLikeByPostID,
+  deleteLikeByPostID,
 };
 
 export default postsOperations;
