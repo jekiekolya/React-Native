@@ -90,7 +90,7 @@ export default function CommentsScreen({ route }) {
                   textAlign: item.authorId === userId ? "left" : "right",
                 }}
               >
-                {item.createdAt}
+                {item.date}
               </Text>
             </View>
           </View>

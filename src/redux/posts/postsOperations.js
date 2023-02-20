@@ -13,6 +13,9 @@ import { db } from "../../firebase/config";
 // Actions
 import { postsAction } from "./postsSlice";
 
+// helpers
+import getFormatDataForComment from "../../helpers/getFormatDataForComment";
+
 // GET ALL POSTS
 const getAllPosts = () => async (dispatch, getState) => {
   try {
@@ -109,7 +112,11 @@ const getAllCommentsByPostId = (postId) => async (dispatch, getState) => {
     const comments = await getDocs(collection(docRef, "comments"));
 
     // Add id to collection
-    const payload = comments.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    const payload = comments.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+      date: getFormatDataForComment(doc.data().date),
+    }));
 
     dispatch(postsAction.updateCommentsToPost(payload));
   } catch (error) {
