@@ -94,6 +94,7 @@ const addPost = (postData) => async (dispatch, getState) => {
 
     // get all posts
     dispatch(getAllPosts());
+    dispatch(getOwnPosts());
   } catch (error) {
     console.log("error.message", error.message);
   }
