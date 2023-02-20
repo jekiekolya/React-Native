@@ -202,6 +202,26 @@ const styles = StyleSheet.create({
 
     transform: [{ translateX: -300 / 2 }, { translateY: -100 / 2 }],
   },
+
+  pickImageWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    position: "absolute",
+    bottom: 10,
+    right: 0,
+
+    width: 40,
+    height: 40,
+
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
+
+    borderRadius: 10,
+
+    transform: [{ translateX: -60 / 2 }, { translateY: -60 / 2 }],
+    zIndex: 1000,
+  },
 });
 
 export default styles;

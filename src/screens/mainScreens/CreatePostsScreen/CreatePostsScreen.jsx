@@ -9,9 +9,11 @@ import {
   Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Entypo } from "@expo/vector-icons";
 import * as MediaLibrary from "expo-media-library";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
+import * as ImagePicker from "expo-image-picker";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -128,9 +130,24 @@ export default function CreatePostsScreen() {
     setCameraIsOpen(!cameraIsOpen);
   };
 
+  // Take photo
   const takePhoto = async () => {
     const photo = await camera.takePictureAsync();
     setImage(photo.uri);
+  };
+
+  // Pick image
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4.5, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
   };
 
   const titleHandler = (text) => setPost((p) => ({ ...p, title: text }));
@@ -204,6 +221,13 @@ export default function CreatePostsScreen() {
                 style={styles.cameraSnap}
               >
                 <CameraIcon style={{ fill: "#FFF", color: "#FFF" }} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={pickImage}
+                style={styles.pickImageWrapper}
+              >
+                <Entypo name="images" size={24} color="#FFF" />
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.8}
