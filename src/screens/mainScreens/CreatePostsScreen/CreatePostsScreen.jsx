@@ -109,7 +109,7 @@ export default function CreatePostsScreen() {
             },
           }));
         } catch (error) {
-          console.log(error);
+          alert(error.message);
         }
       })();
     }

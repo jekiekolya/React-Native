@@ -24,7 +24,7 @@ const updateUserAvatar = (image) => async (dispatch, getState) => {
     // Update state
     dispatch(authAction.updateUserProfile(payload));
   } catch (error) {
-    console.log("error.message", error.message);
+    alert(error.message);
   }
 };
 

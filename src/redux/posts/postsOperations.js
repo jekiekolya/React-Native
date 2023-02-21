@@ -61,7 +61,7 @@ const getAllPosts = () => async (dispatch, getState) => {
 
     dispatch(postsAction.updatePosts(payload));
   } catch (error) {
-    console.log("error.message", error.message);
+    alert(error.message);
   }
 };
 
@@ -108,7 +108,7 @@ const getOwnPosts = () => async (dispatch, getState) => {
 
     dispatch(postsAction.updateOwnPosts(payload));
   } catch (error) {
-    console.log("error.message", error.message);
+    alert(error.message);
   }
 };
 
@@ -133,7 +133,7 @@ const addPost = (postData) => async (dispatch, getState) => {
     dispatch(getAllPosts());
     dispatch(getOwnPosts());
   } catch (error) {
-    console.log("error.message", error.message);
+    alert(error.message);
   }
 };
 
@@ -155,7 +155,7 @@ const getAllCommentsByPostId = (postId) => async (dispatch, getState) => {
 
     dispatch(postsAction.updateCommentsToPost(payload));
   } catch (error) {
-    console.log("error.message", error.message);
+    alert(error.message);
   }
 };
 
@@ -185,7 +185,7 @@ const addCommentByPostID =
       // Update state
       dispatch(getAllCommentsByPostId(postId));
     } catch (error) {
-      console.log("error.message", error.message);
+      alert(error.message);
     }
   };
 
@@ -212,7 +212,7 @@ const addLikeByPostID = (postId) => async (dispatch, getState) => {
     dispatch(getAllPosts());
     dispatch(getOwnPosts());
   } catch (error) {
-    console.log("error.message", error.message);
+    alert(error.message);
   }
 };
 
@@ -239,7 +239,7 @@ const deleteLikeByPostID = (postId) => async (dispatch, getState) => {
     dispatch(getAllPosts());
     dispatch(getOwnPosts());
   } catch (error) {
-    console.log("error.message", error.message);
+    alert(error.message);
   }
 };
 

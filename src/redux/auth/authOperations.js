@@ -32,7 +32,6 @@ const authRegister =
       });
       // Get updated user
       const user = auth.currentUser;
-      console.log("user", user);
 
       // Create payload
       const payload = {
@@ -44,7 +43,7 @@ const authRegister =
 
       dispatch(authAction.updateUserProfile(payload));
     } catch (error) {
-      console.log("error.message", error.message);
+      alert(error.message);
     }
   };
 
@@ -64,7 +63,7 @@ const authLogin =
 
       dispatch(authAction.updateUserProfile(payload));
     } catch (error) {
-      console.log("error.message", error.message);
+      alert(error.message);
     }
   };
 
@@ -75,7 +74,7 @@ const authLogout = () => async (dispatch, getState) => {
 
     dispatch(authAction.authStateChange(false));
   } catch (error) {
-    console.log("error.message", error.message);
+    alert(error.message);
   }
 };
 
@@ -106,7 +105,7 @@ const authStateChangeUser = () => async (dispatch) => {
       }
     });
   } catch (error) {
-    console.log("error.message", error.message);
+    alert(error.message);
   }
 };
 

@@ -19,6 +19,6 @@ export default async function uploadPhotoToServer(postImage) {
 
     return postImageUrl;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 }

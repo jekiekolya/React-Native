@@ -19,6 +19,6 @@ export default async function uploadUserAvatarToServer(userAvatar) {
 
     return userAvatarUrl;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 }
