@@ -23,6 +23,7 @@
     "expo-media-library": "~15.0.0",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
+    "expo-updates": "~0.15.6",
     "firebase": "^9.17.1",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -35,11 +36,11 @@
     "react-native-svg": "13.4.0",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.18.9",
-    "react-redux": "^8.0.5",
-    "expo-updates": "~0.15.6"
+    "react-redux": "^8.0.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "react-native-dotenv": "^3.4.7"
   },
   "private": true
 }

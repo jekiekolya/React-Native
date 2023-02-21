@@ -8,14 +8,25 @@ import { getFirestore } from "firebase/firestore";
 // Additional Libraries
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+// DOTENV
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDER_ID,
+  APP_ID,
+  MEASUREMENT_ID,
+} from "@env";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyB-qg3MiAy6e4fbkJfMQq6S8x_dejW9hww",
-  authDomain: "react-native-hw-c7c5a.firebaseapp.com",
-  projectId: "react-native-hw-c7c5a",
-  storageBucket: "react-native-hw-c7c5a.appspot.com",
-  messagingSenderId: "854402692624",
-  appId: "1:854402692624:web:e709d4e8cd2b98825e3c95",
-  measurementId: "G-1QE2YX9VMS",
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
 };
 
 // Initialize Firebase
