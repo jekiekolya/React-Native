@@ -12,29 +12,29 @@ export default function getFormatDataForComment(date) {
 function getNameMonth(month) {
   switch (month) {
     case 1:
-      return "Січеня";
+      return "Січня";
     case 2:
       return "Лютого";
     case 3:
-      return "Березеня";
+      return "Березня";
     case 4:
-      return "Квітеня";
+      return "Квітня";
     case 5:
-      return "Травеня";
+      return "Травня";
     case 6:
-      return "Червеня";
+      return "Червня";
     case 7:
-      return "Липеня";
+      return "Липня";
     case 8:
-      return "Серпеня";
+      return "Серпня";
     case 9:
-      return "Вересеня";
+      return "Вересня";
     case 10:
-      return "Жовтеня";
+      return "Жовтня";
     case 11:
       return "Листопада";
     case 12:
-      return "Груденя";
+      return "Грудня";
     default:
       return "";
   }
